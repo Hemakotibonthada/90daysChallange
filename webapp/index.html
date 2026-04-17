@@ -4,7 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>90 Days Challenge — Transform Your Life</title>
+    <meta name="description" content="Master C++, Python, DSA and build physical fitness in 90 days with structured daily plans, progress tracking, quizzes, flashcards, and more.">
+    <meta name="keywords" content="90 days challenge, coding challenge, C++, Python, DSA, fitness, learning, programming">
+    <meta name="author" content="Hema Koteswar Naidu">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="90 Days Challenge — Transform Your Life">
+    <meta property="og:description" content="Master C++, Python, DSA and build physical fitness in 90 days">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="90 Days Challenge">
+    <meta name="twitter:description" content="Transform your skills and body in 90 days">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="90 Days">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileColor" content="#6366f1">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/advanced.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -350,6 +368,27 @@
                 </a>
                 <a class="sidebar-link" data-tab="analytics" onclick="switchTab('analytics')">
                     <i class="fas fa-chart-pie"></i><span>Analytics</span>
+                </a>
+                <a class="sidebar-link" data-tab="editor" onclick="switchTab('editor')">
+                    <i class="fas fa-terminal"></i><span>Code Editor</span>
+                </a>
+                <a class="sidebar-link" data-tab="flashcards" onclick="switchTab('flashcards')">
+                    <i class="fas fa-layer-group"></i><span>Flashcards</span>
+                </a>
+                <a class="sidebar-link" data-tab="quiz" onclick="switchTab('quiz')">
+                    <i class="fas fa-question-circle"></i><span>Quizzes</span>
+                </a>
+                <a class="sidebar-link" data-tab="calendar" onclick="switchTab('calendar')">
+                    <i class="fas fa-calendar"></i><span>Calendar</span>
+                </a>
+                <a class="sidebar-link" data-tab="resources" onclick="switchTab('resources')">
+                    <i class="fas fa-book-open"></i><span>Resources</span>
+                </a>
+                <a class="sidebar-link" data-tab="habits" onclick="switchTab('habits')">
+                    <i class="fas fa-check-double"></i><span>Habits</span>
+                </a>
+                <a class="sidebar-link" data-tab="whiteboard" onclick="switchTab('whiteboard')">
+                    <i class="fas fa-paint-brush"></i><span>Whiteboard</span>
                 </a>
                 <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
                     <i class="fas fa-user-circle"></i><span>Profile</span>
@@ -835,6 +874,345 @@
                         <div id="weekly-summary"></div>
                     </div>
                 </div>
+
+                <!-- ===== Code Editor Tab ===== -->
+                <div class="tab-content" id="tab-editor">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-terminal"></i> Code Editor</h2>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <select id="editor-lang" class="editor-select" onchange="changeEditorLang()">
+                                <option value="cpp">C++</option>
+                                <option value="python">Python</option>
+                                <option value="javascript">JavaScript</option>
+                            </select>
+                            <select id="editor-theme-select" class="editor-select" onchange="changeEditorTheme()">
+                                <option value="dark">Dark</option>
+                                <option value="monokai">Monokai</option>
+                                <option value="light">Light</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="runCode()"><i class="fas fa-play"></i> Run</button>
+                            <button class="btn btn-outline btn-sm" onclick="copyCode()"><i class="fas fa-copy"></i> Copy</button>
+                            <button class="btn btn-outline btn-sm" onclick="downloadCode()"><i class="fas fa-download"></i> Save</button>
+                            <button class="btn btn-ghost btn-sm" onclick="clearEditor()"><i class="fas fa-eraser"></i></button>
+                        </div>
+                    </div>
+                    <div class="editor-container">
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="line-numbers">1</div>
+                            <textarea id="code-editor" class="code-editor" spellcheck="false" placeholder="Write your code here..." oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
+                        </div>
+                        <div class="editor-output">
+                            <div class="editor-output-header">
+                                <span><i class="fas fa-terminal"></i> Output</span>
+                                <button class="btn btn-ghost btn-sm" onclick="clearOutput()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <pre id="code-output" class="code-output">// Output will appear here</pre>
+                        </div>
+                    </div>
+                    <div class="card" style="margin-top:16px;">
+                        <h3 class="card-title"><i class="fas fa-save"></i> Saved Snippets</h3>
+                        <div id="saved-snippets"></div>
+                    </div>
+                </div>
+
+                <!-- ===== Flashcards Tab ===== -->
+                <div class="tab-content" id="tab-flashcards">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-layer-group"></i> Flashcards</h2>
+                        <div style="display:flex;gap:8px;">
+                            <select id="fc-deck" class="editor-select" onchange="loadFlashcardDeck()">
+                                <option value="cpp">C++ Concepts</option>
+                                <option value="python">Python Concepts</option>
+                                <option value="dsa">DSA Concepts</option>
+                                <option value="custom">My Cards</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="createFlashcard()"><i class="fas fa-plus"></i> Create</button>
+                        </div>
+                    </div>
+                    <div class="fc-stats-row">
+                        <div class="fc-stat"><span id="fc-total">0</span> Total</div>
+                        <div class="fc-stat fc-know"><span id="fc-known">0</span> Known</div>
+                        <div class="fc-stat fc-learning"><span id="fc-learning-count">0</span> Learning</div>
+                        <div class="fc-stat fc-new"><span id="fc-new-count">0</span> New</div>
+                    </div>
+                    <div class="flashcard-area">
+                        <div class="flashcard" id="flashcard" onclick="flipCard()">
+                            <div class="flashcard-inner" id="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <div class="fc-label">Question</div>
+                                    <div class="fc-content" id="fc-front-content">Select a deck to start</div>
+                                    <div class="fc-hint">Click to flip</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <div class="fc-label">Answer</div>
+                                    <div class="fc-content" id="fc-back-content">—</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fc-controls">
+                            <button class="btn btn-outline" onclick="fcRate('again')"><i class="fas fa-redo"></i> Again</button>
+                            <button class="btn btn-outline" onclick="fcRate('hard')"><i class="fas fa-brain"></i> Hard</button>
+                            <button class="btn btn-outline" onclick="fcRate('good')"><i class="fas fa-check"></i> Good</button>
+                            <button class="btn btn-primary" onclick="fcRate('easy')"><i class="fas fa-bolt"></i> Easy</button>
+                        </div>
+                        <div class="fc-progress-info">
+                            Card <span id="fc-current">0</span> of <span id="fc-deck-total">0</span>
+                        </div>
+                    </div>
+                    <!-- Create Flashcard Modal -->
+                    <div class="modal-overlay" id="fc-modal">
+                        <div class="modal-card">
+                            <div class="modal-header">
+                                <h3>Create Flashcard</h3>
+                                <button class="btn btn-ghost" onclick="document.getElementById('fc-modal').classList.remove('active')"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <label>Front (Question)</label>
+                                <textarea id="fc-new-front" rows="3" placeholder="Enter question..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Back (Answer)</label>
+                                <textarea id="fc-new-back" rows="3" placeholder="Enter answer..."></textarea>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn btn-ghost" onclick="document.getElementById('fc-modal').classList.remove('active')">Cancel</button>
+                                <button class="btn btn-primary" onclick="saveFlashcard()"><i class="fas fa-save"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Quiz Tab ===== -->
+                <div class="tab-content" id="tab-quiz">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-question-circle"></i> Knowledge Quizzes</h2>
+                    </div>
+                    <div id="quiz-menu">
+                        <div class="quiz-grid">
+                            <div class="quiz-card" onclick="startQuiz('cpp_basics')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><i class="fas fa-code"></i></div>
+                                <h3>C++ Basics</h3>
+                                <p>Variables, loops, functions, arrays</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('cpp_oop')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#8b5cf6,#a855f7)"><i class="fas fa-cubes"></i></div>
+                                <h3>C++ OOP</h3>
+                                <p>Classes, inheritance, polymorphism</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('python_basics')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fab fa-python"></i></div>
+                                <h3>Python Basics</h3>
+                                <p>Syntax, data types, comprehensions</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('dsa_fundamentals')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)"><i class="fas fa-sitemap"></i></div>
+                                <h3>DSA Fundamentals</h3>
+                                <p>Arrays, linked lists, stacks, trees</p>
+                                <span class="quiz-card-meta">20 questions • 15 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('dsa_advanced')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><i class="fas fa-project-diagram"></i></div>
+                                <h3>DSA Advanced</h3>
+                                <p>Graphs, DP, backtracking, greedy</p>
+                                <span class="quiz-card-meta">15 questions • 12 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('complexity')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#ef4444,#f87171)"><i class="fas fa-tachometer-alt"></i></div>
+                                <h3>Time Complexity</h3>
+                                <p>Big-O analysis, space complexity</p>
+                                <span class="quiz-card-meta">10 questions • 8 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('cpp_stl')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#6366f1,#818cf8)"><i class="fas fa-box"></i></div>
+                                <h3>C++ STL</h3>
+                                <p>Vectors, maps, sets, algorithms</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('python_oop')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-cubes"></i></div>
+                                <h3>Python OOP</h3>
+                                <p>Classes, inheritance, magic methods</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('python_advanced')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#a855f7,#c084fc)"><i class="fab fa-python"></i></div>
+                                <h3>Python Advanced</h3>
+                                <p>Generators, closures, async, GIL</p>
+                                <span class="quiz-card-meta">15 questions • 12 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('sorting')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#ec4899,#f472b6)"><i class="fas fa-sort"></i></div>
+                                <h3>Sorting Algorithms</h3>
+                                <p>Bubble, Merge, Quick, Heap sort</p>
+                                <span class="quiz-card-meta">15 questions • 10 min</span>
+                            </div>
+                            <div class="quiz-card" onclick="startQuiz('graphs_trees')">
+                                <div class="quiz-card-icon" style="background:linear-gradient(135deg,#14b8a6,#2dd4bf)"><i class="fas fa-project-diagram"></i></div>
+                                <h3>Graphs & Trees</h3>
+                                <p>BST, BFS, DFS, MST, traversals</p>
+                                <span class="quiz-card-meta">15 questions • 12 min</span>
+                            </div>
+                        </div>
+                        <div class="card" style="margin-top:20px;">
+                            <h3 class="card-title"><i class="fas fa-history"></i> Quiz History</h3>
+                            <div id="quiz-history"></div>
+                        </div>
+                    </div>
+                    <div id="quiz-active" style="display:none;">
+                        <div class="quiz-header-bar">
+                            <div class="quiz-timer"><i class="fas fa-clock"></i> <span id="quiz-timer-display">10:00</span></div>
+                            <div class="quiz-progress-text">Question <span id="quiz-q-num">1</span> / <span id="quiz-q-total">15</span></div>
+                            <button class="btn btn-ghost btn-sm" onclick="endQuiz()"><i class="fas fa-times"></i> End</button>
+                        </div>
+                        <div class="progress-bar" style="margin-bottom:20px;"><div class="progress-bar-fill" id="quiz-progress-bar" style="width:0%"></div></div>
+                        <div class="quiz-question-card card">
+                            <h3 id="quiz-question">Question text here?</h3>
+                            <div id="quiz-options" class="quiz-options"></div>
+                        </div>
+                        <div class="quiz-nav">
+                            <button class="btn btn-outline" id="quiz-prev-btn" onclick="quizPrev()" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+                            <button class="btn btn-primary" id="quiz-next-btn" onclick="quizNext()">Next <i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div id="quiz-results" style="display:none;">
+                        <div class="quiz-results-card card">
+                            <div class="quiz-result-icon" id="quiz-result-icon">🏆</div>
+                            <h2 id="quiz-result-title">Quiz Complete!</h2>
+                            <div class="quiz-score-ring">
+                                <svg viewBox="0 0 120 120" width="120" height="120">
+                                    <circle cx="60" cy="60" r="52" fill="none" stroke="var(--glass-border)" stroke-width="8"/>
+                                    <circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent-1)" stroke-width="8" stroke-linecap="round"
+                                        stroke-dasharray="326.7" id="quiz-score-ring" stroke-dashoffset="326.7" style="transform:rotate(-90deg);transform-origin:center;transition:stroke-dashoffset 1s ease"/>
+                                </svg>
+                                <div class="quiz-score-text"><span id="quiz-score-percent">0%</span></div>
+                            </div>
+                            <p id="quiz-result-detail">You scored 0 out of 0</p>
+                            <div style="display:flex;gap:10px;justify-content:center;margin-top:16px;">
+                                <button class="btn btn-primary" onclick="retakeQuiz()"><i class="fas fa-redo"></i> Retake</button>
+                                <button class="btn btn-outline" onclick="showQuizMenu()"><i class="fas fa-list"></i> All Quizzes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Calendar Tab ===== -->
+                <div class="tab-content" id="tab-calendar">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-calendar"></i> Challenge Calendar</h2>
+                    </div>
+                    <div class="calendar-nav">
+                        <button class="btn btn-ghost" onclick="calendarPrevMonth()"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="calendar-month-title">April 2026</h3>
+                        <button class="btn btn-ghost" onclick="calendarNextMonth()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-header-row">
+                            <div class="cal-day-name">Sun</div><div class="cal-day-name">Mon</div>
+                            <div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div>
+                            <div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div>
+                            <div class="cal-day-name">Sat</div>
+                        </div>
+                        <div class="calendar-body" id="calendar-body"></div>
+                    </div>
+                    <div class="card" style="margin-top:16px;">
+                        <h3 class="card-title"><i class="fas fa-info-circle"></i> Day Details</h3>
+                        <div id="calendar-day-detail">
+                            <p style="color:var(--text-muted);">Click on a day to see details</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Resources Tab ===== -->
+                <div class="tab-content" id="tab-resources">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-book-open"></i> Resource Library</h2>
+                        <button class="btn btn-primary btn-sm" onclick="addResource()"><i class="fas fa-plus"></i> Add Resource</button>
+                    </div>
+                    <div class="resource-filters">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="resource-search" placeholder="Search resources..." oninput="filterResources()">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-rcat="all" onclick="filterResourceCat('all')">All</button>
+                            <button class="filter-btn" data-rcat="cpp" onclick="filterResourceCat('cpp')">C++</button>
+                            <button class="filter-btn" data-rcat="python" onclick="filterResourceCat('python')">Python</button>
+                            <button class="filter-btn" data-rcat="dsa" onclick="filterResourceCat('dsa')">DSA</button>
+                            <button class="filter-btn" data-rcat="fitness" onclick="filterResourceCat('fitness')">Fitness</button>
+                            <button class="filter-btn" data-rcat="other" onclick="filterResourceCat('other')">Other</button>
+                        </div>
+                    </div>
+                    <div id="resources-list"></div>
+                    <div class="modal-overlay" id="resource-modal">
+                        <div class="modal-card">
+                            <div class="modal-header">
+                                <h3>Add Resource</h3>
+                                <button class="btn btn-ghost" onclick="document.getElementById('resource-modal').classList.remove('active')"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="form-group"><label>Title</label><div class="input-wrapper"><i class="fas fa-heading"></i><input type="text" id="res-title" placeholder="Resource title"></div></div>
+                            <div class="form-group"><label>URL</label><div class="input-wrapper"><i class="fas fa-link"></i><input type="url" id="res-url" placeholder="https://..."></div></div>
+                            <div class="form-group"><label>Category</label><div class="input-wrapper"><i class="fas fa-tag"></i><select id="res-category"><option value="cpp">C++</option><option value="python">Python</option><option value="dsa">DSA</option><option value="fitness">Fitness</option><option value="other">Other</option></select></div></div>
+                            <div class="form-group"><label>Notes</label><textarea id="res-notes" rows="3" placeholder="Optional notes..." style="width:100%;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:10px;color:var(--text-primary);font-family:inherit;outline:none;resize:vertical;"></textarea></div>
+                            <div class="modal-actions">
+                                <button class="btn btn-ghost" onclick="document.getElementById('resource-modal').classList.remove('active')">Cancel</button>
+                                <button class="btn btn-primary" onclick="saveResource()"><i class="fas fa-save"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Habits Tab ===== -->
+                <div class="tab-content" id="tab-habits">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-check-double"></i> Habit Tracker</h2>
+                        <button class="btn btn-primary btn-sm" onclick="addHabit()"><i class="fas fa-plus"></i> Add Habit</button>
+                    </div>
+                    <div id="habits-list"></div>
+                    <div class="card" style="margin-top:16px;">
+                        <h3 class="card-title"><i class="fas fa-chart-line"></i> Habit Streaks</h3>
+                        <div id="habit-streaks"></div>
+                    </div>
+                    <div class="modal-overlay" id="habit-modal">
+                        <div class="modal-card">
+                            <div class="modal-header"><h3>New Habit</h3><button class="btn btn-ghost" onclick="document.getElementById('habit-modal').classList.remove('active')"><i class="fas fa-times"></i></button></div>
+                            <div class="form-group"><label>Habit Name</label><div class="input-wrapper"><i class="fas fa-star"></i><input type="text" id="habit-name" placeholder="e.g., Read 30 min, Meditate..."></div></div>
+                            <div class="form-group"><label>Icon (emoji)</label><div class="input-wrapper"><i class="fas fa-smile"></i><input type="text" id="habit-icon" placeholder="📚" maxlength="4"></div></div>
+                            <div class="form-group"><label>Color</label><div class="input-wrapper"><i class="fas fa-palette"></i><input type="color" id="habit-color" value="#6366f1" style="padding:4px;height:40px;"></div></div>
+                            <div class="modal-actions"><button class="btn btn-ghost" onclick="document.getElementById('habit-modal').classList.remove('active')">Cancel</button><button class="btn btn-primary" onclick="saveHabit()"><i class="fas fa-save"></i> Save</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Whiteboard Tab ===== -->
+                <div class="tab-content" id="tab-whiteboard">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-paint-brush"></i> Whiteboard</h2>
+                        <div class="wb-toolbar">
+                            <button class="wb-tool active" data-tool="pen" onclick="setWBTool('pen',this)" title="Pen"><i class="fas fa-pen"></i></button>
+                            <button class="wb-tool" data-tool="eraser" onclick="setWBTool('eraser',this)" title="Eraser"><i class="fas fa-eraser"></i></button>
+                            <button class="wb-tool" data-tool="line" onclick="setWBTool('line',this)" title="Line"><i class="fas fa-minus"></i></button>
+                            <button class="wb-tool" data-tool="rect" onclick="setWBTool('rect',this)" title="Rectangle"><i class="fas fa-square"></i></button>
+                            <button class="wb-tool" data-tool="circle" onclick="setWBTool('circle',this)" title="Circle"><i class="fas fa-circle"></i></button>
+                            <button class="wb-tool" data-tool="text" onclick="setWBTool('text',this)" title="Text"><i class="fas fa-font"></i></button>
+                            <input type="color" id="wb-color" value="#6366f1" class="wb-color-picker" title="Color">
+                            <select id="wb-size" class="wb-size-select" title="Brush Size">
+                                <option value="2">Thin</option>
+                                <option value="4" selected>Medium</option>
+                                <option value="8">Thick</option>
+                                <option value="16">Extra</option>
+                            </select>
+                            <button class="btn btn-ghost btn-sm" onclick="undoWB()" title="Undo"><i class="fas fa-undo"></i></button>
+                            <button class="btn btn-ghost btn-sm" onclick="clearWB()" title="Clear"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-outline btn-sm" onclick="saveWB()"><i class="fas fa-download"></i> Save</button>
+                        </div>
+                    </div>
+                    <div class="wb-canvas-container">
+                        <canvas id="whiteboard-canvas" width="1200" height="700"></canvas>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -884,9 +1262,12 @@
         </div>
     </div>
 
+    <script src="js/utils.js"></script>
     <script src="js/data.js"></script>
+    <script src="js/quiz-data.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
     <script src="js/features.js"></script>
+    <script src="js/advanced.js"></script>
 </body>
 </html>

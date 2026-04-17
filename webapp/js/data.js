@@ -698,3 +698,94 @@ function getDietPlan(dietType) {
 
     return dietType === 'vegetarian' ? vegMeals : nonVegMeals;
 }
+
+// ===== Daily Coding Challenges =====
+const dailyCodingChallenges = {
+    1: { title: "Print Hello World", difficulty: "easy", description: "Write a program that prints 'Hello World!' to the console.", hint: "Use cout (C++) or print() (Python)", testCases: ["Input: None → Output: Hello World!"] },
+    2: { title: "Sum of Two Numbers", difficulty: "easy", description: "Write a function that takes two integers and returns their sum.", hint: "Simple addition", testCases: ["add(2, 3) → 5", "add(-1, 1) → 0", "add(0, 0) → 0"] },
+    3: { title: "Even or Odd", difficulty: "easy", description: "Write a function that returns 'Even' if a number is even, 'Odd' otherwise.", hint: "Use modulo operator %", testCases: ["check(4) → 'Even'", "check(7) → 'Odd'", "check(0) → 'Even'"] },
+    4: { title: "Factorial", difficulty: "easy", description: "Write a function to calculate the factorial of a number n.", hint: "n! = n × (n-1) × ... × 1", testCases: ["factorial(5) → 120", "factorial(0) → 1", "factorial(1) → 1"] },
+    5: { title: "Fibonacci", difficulty: "easy", description: "Write a function to return the nth Fibonacci number (0-indexed).", hint: "F(n) = F(n-1) + F(n-2), F(0)=0, F(1)=1", testCases: ["fib(0) → 0", "fib(5) → 5", "fib(10) → 55"] },
+    6: { title: "Reverse a String", difficulty: "easy", description: "Write a function that reverses a string.", hint: "Two pointers or built-in reverse", testCases: ["reverse('hello') → 'olleh'", "reverse('abc') → 'cba'"] },
+    7: { title: "Palindrome Check", difficulty: "easy", description: "Check if a string is a palindrome (reads same forwards and backwards).", hint: "Compare with reversed string", testCases: ["isPalindrome('racecar') → true", "isPalindrome('hello') → false"] },
+    8: { title: "Find Maximum", difficulty: "easy", description: "Find the maximum element in an array.", hint: "Iterate and track max", testCases: ["max([3,1,4,1,5,9]) → 9", "max([-1,-5,-2]) → -1"] },
+    9: { title: "Count Vowels", difficulty: "easy", description: "Count the number of vowels in a string.", hint: "Check each character against 'aeiouAEIOU'", testCases: ["countVowels('hello') → 2", "countVowels('aeiou') → 5"] },
+    10: { title: "Two Sum", difficulty: "easy", description: "Given an array and target, find two indices whose values sum to target.", hint: "Use a hash map for O(n) solution", testCases: ["twoSum([2,7,11,15], 9) → [0,1]"] },
+    11: { title: "Remove Duplicates", difficulty: "easy", description: "Remove duplicate elements from a sorted array in-place.", hint: "Two pointer approach", testCases: ["removeDups([1,1,2,3,3]) → [1,2,3]"] },
+    12: { title: "Valid Parentheses", difficulty: "easy", description: "Check if a string of brackets is valid (properly opened and closed).", hint: "Use a stack", testCases: ["isValid('()[]{}') → true", "isValid('(]') → false"] },
+    13: { title: "Merge Two Sorted Arrays", difficulty: "easy", description: "Merge two sorted arrays into one sorted array.", hint: "Two pointers, compare elements", testCases: ["merge([1,3,5], [2,4,6]) → [1,2,3,4,5,6]"] },
+    14: { title: "Binary Search", difficulty: "easy", description: "Implement binary search on a sorted array.", hint: "Use low, high, mid pointers", testCases: ["search([1,3,5,7,9], 5) → 2", "search([1,3,5], 4) → -1"] },
+    15: { title: "Reverse Linked List", difficulty: "medium", description: "Reverse a singly linked list.", hint: "Track prev, curr, next pointers", testCases: ["reverse(1→2→3) → 3→2→1"] },
+    16: { title: "Maximum Subarray", difficulty: "medium", description: "Find the contiguous subarray with the largest sum.", hint: "Kadane's algorithm", testCases: ["maxSubarray([-2,1,-3,4,-1,2,1,-5,4]) → 6"] },
+    17: { title: "Climbing Stairs", difficulty: "easy", description: "You can climb 1 or 2 steps. How many ways to reach step n?", hint: "Dynamic programming: dp[i] = dp[i-1] + dp[i-2]", testCases: ["climb(2) → 2", "climb(3) → 3", "climb(5) → 8"] },
+    18: { title: "Contains Duplicate", difficulty: "easy", description: "Check if an array contains any duplicates.", hint: "Use a set", testCases: ["hasDup([1,2,3,1]) → true", "hasDup([1,2,3]) → false"] },
+    19: { title: "Best Time to Buy/Sell Stock", difficulty: "easy", description: "Find maximum profit from one buy-sell transaction.", hint: "Track min price so far, calculate profit at each step", testCases: ["maxProfit([7,1,5,3,6,4]) → 5"] },
+    20: { title: "Linked List Cycle", difficulty: "easy", description: "Detect if a linked list has a cycle.", hint: "Floyd's cycle detection (slow/fast pointers)", testCases: ["hasCycle(1→2→3→2) → true"] },
+    21: { title: "Invert Binary Tree", difficulty: "easy", description: "Invert (mirror) a binary tree.", hint: "Swap left and right children recursively", testCases: ["invert([4,2,7,1,3,6,9]) → [4,7,2,9,6,3,1]"] },
+    22: { title: "Valid Anagram", difficulty: "easy", description: "Check if two strings are anagrams of each other.", hint: "Count character frequencies", testCases: ["isAnagram('anagram','nagaram') → true", "isAnagram('rat','car') → false"] },
+    23: { title: "Group Anagrams", difficulty: "medium", description: "Group strings that are anagrams of each other.", hint: "Sort each string as key, group by key", testCases: ["group(['eat','tea','tan','ate','nat','bat']) → [['eat','tea','ate'],['tan','nat'],['bat']]"] },
+    24: { title: "Product of Array Except Self", difficulty: "medium", description: "Return array where each element is the product of all elements except itself.", hint: "Left pass and right pass", testCases: ["productExceptSelf([1,2,3,4]) → [24,12,8,6]"] },
+    25: { title: "3Sum", difficulty: "medium", description: "Find all unique triplets that sum to zero.", hint: "Sort + Two Pointers", testCases: ["threeSum([-1,0,1,2,-1,-4]) → [[-1,-1,2],[-1,0,1]]"] },
+    26: { title: "Coin Change", difficulty: "medium", description: "Find minimum number of coins to make a given amount.", hint: "DP: dp[i] = min coins for amount i", testCases: ["coinChange([1,5,11], 15) → 3 (5+5+5)"] },
+    27: { title: "Number of Islands", difficulty: "medium", description: "Count the number of islands in a 2D grid.", hint: "BFS or DFS from each '1', mark visited", testCases: ["numIslands([[1,1,0],[0,1,0],[0,0,1]]) → 2"] },
+    28: { title: "Longest Substring Without Repeating", difficulty: "medium", description: "Find the length of the longest substring without repeating characters.", hint: "Sliding window + hash set", testCases: ["lengthOfLongest('abcabcbb') → 3 ('abc')"] },
+    29: { title: "Validate BST", difficulty: "medium", description: "Check if a binary tree is a valid BST.", hint: "Inorder traversal should give sorted sequence, or use min/max bounds", testCases: ["isValidBST([2,1,3]) → true", "isValidBST([5,1,4,null,null,3,6]) → false"] },
+    30: { title: "Level Order Traversal", difficulty: "medium", description: "Return the level order traversal of a binary tree.", hint: "BFS using queue", testCases: ["levelOrder([3,9,20,null,null,15,7]) → [[3],[9,20],[15,7]]"] },
+};
+
+// ===== Daily Tips for Each Day =====
+function getDailyTip(day) {
+    const tips = [
+        "Focus on understanding, not memorizing. If you understand WHY, you'll never forget HOW.",
+        "Write code by hand first, then type it. This builds deeper understanding.",
+        "Don't copy-paste solutions. Type them out character by character.",
+        "Spend 10 min reviewing yesterday's topics before starting today.",
+        "When stuck on a problem for 30+ minutes, look at the hint, not the solution.",
+        "Explain your code to a rubber duck (or a friend). Teaching = learning.",
+        "Take short breaks every 45 minutes. Your brain needs rest to consolidate.",
+        "Solve easy problems confidently before moving to medium.",
+        "Read the problem statement 3 times before coding.",
+        "Practice writing clean, readable code with good variable names.",
+        "Start every DSA problem by identifying the pattern: two pointers? sliding window? BFS?",
+        "Track your mistakes. Review wrong submissions weekly.",
+        "Speed comes with practice. Don't rush. Understanding > speed.",
+        "Build projects alongside problem-solving. Both matter.",
+        "Consistency beats intensity. 2 hours daily > 14 hours once a week.",
+        "Fitness is not optional. A healthy body supports a sharp mind.",
+        "Drink water. Dehydration reduces cognitive performance by 25%.",
+        "Sleep 7-8 hours. Sleep deprivation = being drunk while coding.",
+        "Teach someone what you learned today. Best retention technique.",
+        "Review your code after 24 hours. You'll spot improvements.",
+        "Don't compare your Day 1 to someone's Day 100.",
+        "Every expert was once a beginner. Keep showing up.",
+        "Celebrate small wins. Completed Day 7? That's an achievement!",
+        "The best time to start was yesterday. The second best time is now.",
+        "Progress is not always linear. Trust the process.",
+        "When you feel like quitting, remember why you started.",
+        "Focus on the process, not the outcome.",
+        "Break complex problems into smaller sub-problems.",
+        "Version control everything. Git commit daily.",
+        "Your future self will thank your present self for not giving up.",
+    ];
+    return tips[(day - 1) % tips.length];
+}
+
+// ===== Weekly Goals =====
+function getWeeklyGoals(week) {
+    const goals = {
+        1: { coding: "Write 15+ programs in C++ and Python", dsa: "Understand Big-O notation", fitness: "Walk 30 min every day", focus: "Build the habit of showing up daily" },
+        2: { coding: "Master functions and arrays", dsa: "Solve 5+ LeetCode Easy problems", fitness: "Add bodyweight exercises", focus: "Start solving problems independently" },
+        3: { coding: "Understand pointers and data structures", dsa: "Implement linked list from scratch", fitness: "Start light jogging", focus: "Think about efficiency" },
+        4: { coding: "Learn STL/collections", dsa: "Solve 10+ problems, learn stacks/queues", fitness: "Build a consistent routine", focus: "Phase 1 review — you've come far!" },
+        5: { coding: "Master OOP fundamentals", dsa: "Start tree problems", fitness: "Increase intensity", focus: "Apply OOP in real code" },
+        6: { coding: "File I/O and exception handling", dsa: "Trees, heaps, hashing", fitness: "Progressive overload", focus: "Combine concepts" },
+        7: { coding: "Templates and advanced features", dsa: "Graph algorithms BFS/DFS", fitness: "HIIT training", focus: "Connect different topics" },
+        8: { coding: "STL mastery", dsa: "Binary search, two pointers", fitness: "Full workout routine", focus: "Speed up problem solving" },
+        9: { coding: "Smart pointers, move semantics", dsa: "Dynamic Programming basics", fitness: "45 min workouts", focus: "DP pattern recognition" },
+        10: { coding: "Regex, advanced OOP", dsa: "Backtracking problems", fitness: "Push for PRs", focus: "Think algorithmically" },
+        11: { coding: "Multithreading basics", dsa: "Mixed hard problems", fitness: "Endurance building", focus: "Mock interview preparation" },
+        12: { coding: "Build C++ project", dsa: "Mock interviews", fitness: "Maintain peak", focus: "Apply everything you've learned" },
+        13: { coding: "Build Python project", dsa: "Final push — confidence problems", fitness: "Celebrate progress!", focus: "You're a different person than Day 1!" },
+    };
+    return goals[week] || goals[13];
+}

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90 Days Challenge — Transform Your Life</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- ==================== LANDING PAGE ==================== -->
+    <div id="landing-page" class="page active">
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+            <div class="bg-circle bg-circle-3"></div>
+        </div>
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-fire"></i>
+                <span>90 Days Challenge</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How it Works</a>
+                <button class="btn btn-outline" onclick="showPage('login-page')">Login</button>
+                <button class="btn btn-primary" onclick="showPage('register-page')">Get Started</button>
+            </div>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#features" class="mobile-link" onclick="toggleMobileMenu()">Features</a>
+            <a href="#how-it-works" class="mobile-link" onclick="toggleMobileMenu()">How it Works</a>
+            <button class="btn btn-outline w-full" onclick="showPage('login-page'); toggleMobileMenu()">Login</button>
+            <button class="btn btn-primary w-full" onclick="showPage('register-page'); toggleMobileMenu()">Get Started</button>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge animate-fade-in">
+                    <i class="fas fa-bolt"></i> Start Your Transformation Today
+                </div>
+                <h1 class="hero-title animate-slide-up">
+                    <span class="gradient-text">90 Days</span> to Transform
+                    <br>Your Skills & Body
+                </h1>
+                <p class="hero-subtitle animate-slide-up delay-1">
+                    Master C++, Python, DSA, and build physical fitness — all with a structured daily plan, progress tracking, and a community of challengers.
+                </p>
+                <div class="hero-cta animate-slide-up delay-2">
+                    <button class="btn btn-primary btn-lg" onclick="showPage('register-page')">
+                        <i class="fas fa-rocket"></i> Start Your Challenge
+                    </button>
+                    <button class="btn btn-ghost btn-lg" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+                        Learn More <i class="fas fa-arrow-down"></i>
+                    </button>
+                </div>
+                <div class="hero-stats animate-fade-in delay-3">
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="90">0</span>
+                        <span class="stat-label">Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="150">0</span>
+                        <span class="stat-label">DSA Problems</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="3">0</span>
+                        <span class="stat-label">Skills</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-count="2">0</span>
+                        <span class="stat-label">Projects</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual animate-float">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dot red"></div>
+                        <div class="code-dot yellow"></div>
+                        <div class="code-dot green"></div>
+                        <span class="code-title">day_1.cpp</span>
+                    </div>
+                    <pre class="code-body"><code><span class="code-keyword">#include</span> <span class="code-string">&lt;iostream&gt;</span>
+<span class="code-keyword">using namespace</span> std;
+
+<span class="code-type">int</span> <span class="code-func">main</span>() {
+    cout << <span class="code-string">"Day 1 of 90!"</span>;
+    cout << <span class="code-string">"Let's go!"</span>;
+    <span class="code-keyword">return</span> <span class="code-number">0</span>;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2 class="section-title">Everything You Need to <span class="gradient-text">Succeed</span></h2>
+            <p class="section-subtitle">A complete system designed to keep you on track for 90 days</p>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-code"></i></div>
+                    <h3>C++ & Python</h3>
+                    <p>Structured roadmap from basics to advanced, with daily coding tasks and mini-projects.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-sitemap"></i></div>
+                    <h3>DSA Mastery</h3>
+                    <p>150+ curated problems across 14 topics — arrays to dynamic programming.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-dumbbell"></i></div>
+                    <h3>Fitness Plan</h3>
+                    <p>Progressive workout plan from walking to full routines with body tracking.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Diet Plan</h3>
+                    <p>Personalized nutrition with Indian veg/non-veg meal options and macro tracking.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Progress Tracking</h3>
+                    <p>Visual dashboards, streak counters, and daily checklists to stay motivated.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Daily Checklist</h3>
+                    <p>Detailed day-by-day tasks for coding, DSA, and fitness — never wonder what to do.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works" id="how-it-works">
+            <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create your free account and set your start date</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Get Your Plan</h3>
+                    <p>Receive a personalized 90-day roadmap with daily tasks</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Track Daily</h3>
+                    <p>Check off tasks, track streaks, and watch your progress grow</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Transform</h3>
+                    <p>Complete the challenge as a better developer and a fitter you</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Built with <i class="fas fa-heart" style="color: #ef4444;"></i> by <strong>Hema Koteswar Naidu</strong> — 90 Days Challenge 2026</p>
+        </footer>
+    </div>
+
+    <!-- ==================== LOGIN PAGE ==================== -->
+    <div id="login-page" class="page">
+        <div class="bg-animation">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        <div class="auth-container">
+            <div class="auth-card animate-scale-in">
+                <button class="auth-back" onclick="showPage('landing-page')">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-fire"></i></div>
+                    <h2>Welcome Back</h2>
+                    <p>Continue your challenge</p>
+                </div>
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="login-email" placeholder="your@email.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="login-password" placeholder="Enter password" required minlength="6" autocomplete="current-password">
+                            <button type="button" class="toggle-password" onclick="togglePassword('login-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                <p class="auth-footer">
+                    Don't have an account? <a href="#" onclick="showPage('register-page')">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== REGISTER PAGE ==================== -->
+    <div id="register-page" class="page">
+        <div class="bg-animation">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        <div class="auth-container">
+            <div class="auth-card animate-scale-in">
+                <button class="auth-back" onclick="showPage('landing-page')">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <div class="auth-header">
+                    <div class="auth-icon"><i class="fas fa-rocket"></i></div>
+                    <h2>Start Your Challenge</h2>
+                    <p>Create your account and begin the journey</p>
+                </div>
+                <form id="register-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-name">Full Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="reg-name" placeholder="Your full name" required autocomplete="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="reg-email" placeholder="your@email.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="reg-password" placeholder="Min 6 characters" required minlength="6" autocomplete="new-password">
+                            <button type="button" class="toggle-password" onclick="togglePassword('reg-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-age">Age</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar"></i>
+                                <input type="number" id="reg-age" placeholder="27" min="10" max="100" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-weight">Weight (kg)</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-weight-hanging"></i>
+                                <input type="number" id="reg-weight" placeholder="68" min="20" max="300" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-height">Height (cm)</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-ruler-vertical"></i>
+                                <input type="number" id="reg-height" placeholder="165" min="100" max="250" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-diet">Diet Preference</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-leaf"></i>
+                            <select id="reg-diet" required>
+                                <option value="">Select diet type</option>
+                                <option value="vegetarian">Pure Vegetarian</option>
+                                <option value="eggetarian">Eggetarian</option>
+                                <option value="non-vegetarian">Non-Vegetarian</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full btn-lg">
+                        <i class="fas fa-rocket"></i> Start My 90 Days
+                    </button>
+                </form>
+                <p class="auth-footer">
+                    Already have an account? <a href="#" onclick="showPage('login-page')">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== DASHBOARD ==================== -->
+    <div id="dashboard-page" class="page">
+        <!-- Dashboard Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-fire"></i>
+                <span>90 Days</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a class="sidebar-link active" data-tab="overview" onclick="switchTab('overview')">
+                    <i class="fas fa-th-large"></i><span>Overview</span>
+                </a>
+                <a class="sidebar-link" data-tab="daily" onclick="switchTab('daily')">
+                    <i class="fas fa-calendar-day"></i><span>Daily Tasks</span>
+                </a>
+                <a class="sidebar-link" data-tab="cpp" onclick="switchTab('cpp')">
+                    <i class="fas fa-code"></i><span>C++ Roadmap</span>
+                </a>
+                <a class="sidebar-link" data-tab="python" onclick="switchTab('python')">
+                    <i class="fab fa-python"></i><span>Python Roadmap</span>
+                </a>
+                <a class="sidebar-link" data-tab="dsa" onclick="switchTab('dsa')">
+                    <i class="fas fa-sitemap"></i><span>DSA Problems</span>
+                </a>
+                <a class="sidebar-link" data-tab="fitness" onclick="switchTab('fitness')">
+                    <i class="fas fa-dumbbell"></i><span>Fitness</span>
+                </a>
+                <a class="sidebar-link" data-tab="diet" onclick="switchTab('diet')">
+                    <i class="fas fa-utensils"></i><span>Diet Plan</span>
+                </a>
+                <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
+                    <i class="fas fa-user-circle"></i><span>Profile</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn btn-ghost w-full" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i><span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Dashboard Main -->
+        <main class="dashboard-main">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="topbar-title" id="topbar-title">Overview</div>
+                <div class="topbar-right">
+                    <div class="streak-badge" id="streak-badge">
+                        <i class="fas fa-fire-alt"></i>
+                        <span id="streak-count">0</span> day streak
+                    </div>
+                    <div class="user-avatar" id="user-avatar">H</div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- ===== Overview Tab ===== -->
+                <div class="tab-content active" id="tab-overview">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Welcome back, <span id="user-name-display">Hema</span>!</h1>
+                            <p id="day-display">Day 1 of 90 — Let's crush it!</p>
+                        </div>
+                        <div class="progress-ring-container">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="progress-ring-bg" cx="60" cy="60" r="52"></circle>
+                                <circle class="progress-ring-fill" id="main-progress-ring" cx="60" cy="60" r="52" 
+                                    stroke-dasharray="326.7" stroke-dashoffset="326.7"></circle>
+                            </svg>
+                            <div class="progress-ring-text">
+                                <span id="progress-percent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-days">0</span>
+                                <span class="stat-card-label">Days Done</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee)">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-problems">0</span>
+                                <span class="stat-card-label">Problems Solved</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24)">
+                                <i class="fas fa-fire-alt"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-streak">0</span>
+                                <span class="stat-card-label">Current Streak</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #10b981, #34d399)">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-workouts">0</span>
+                                <span class="stat-card-label">Workouts Done</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-tasks"></i> Today's Quick Tasks</h3>
+                            <div id="quick-tasks"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-trophy"></i> Phase Progress</h3>
+                            <div class="phase-progress">
+                                <div class="phase-item">
+                                    <div class="phase-info">
+                                        <span>Phase 1: Foundations</span>
+                                        <span id="phase1-percent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill" id="phase1-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="phase-item">
+                                    <div class="phase-info">
+                                        <span>Phase 2: Intermediate</span>
+                                        <span id="phase2-percent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill phase2" id="phase2-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="phase-item">
+                                    <div class="phase-info">
+                                        <span>Phase 3: Advanced</span>
+                                        <span id="phase3-percent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-bar-fill phase3" id="phase3-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heatmap Calendar -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Activity Heatmap</h3>
+                        <div class="heatmap" id="heatmap"></div>
+                    </div>
+                </div>
+
+                <!-- ===== Daily Tasks Tab ===== -->
+                <div class="tab-content" id="tab-daily">
+                    <div class="daily-header">
+                        <button class="btn btn-ghost" id="prev-day" onclick="changeDay(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 id="daily-day-title">Day 1</h2>
+                        <button class="btn btn-ghost" id="next-day" onclick="changeDay(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="daily-date" id="daily-date"></div>
+                    <div id="daily-tasks-container"></div>
+                    <div class="daily-reflection">
+                        <h3><i class="fas fa-pen-fancy"></i> Daily Reflection</h3>
+                        <textarea id="daily-reflection" placeholder="What did you learn today? What went well? What can improve?" rows="4"></textarea>
+                        <button class="btn btn-primary" onclick="saveReflection()">
+                            <i class="fas fa-save"></i> Save Reflection
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ===== C++ Roadmap Tab ===== -->
+                <div class="tab-content" id="tab-cpp">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-code"></i> C++ Learning Roadmap</h2>
+                        <div class="roadmap-progress">
+                            <span id="cpp-progress-text">0 / 0 completed</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" id="cpp-progress-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="cpp-roadmap-content"></div>
+                </div>
+
+                <!-- ===== Python Roadmap Tab ===== -->
+                <div class="tab-content" id="tab-python">
+                    <div class="roadmap-header">
+                        <h2><i class="fab fa-python"></i> Python Learning Roadmap</h2>
+                        <div class="roadmap-progress">
+                            <span id="python-progress-text">0 / 0 completed</span>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" id="python-progress-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="python-roadmap-content"></div>
+                </div>
+
+                <!-- ===== DSA Tab ===== -->
+                <div class="tab-content" id="tab-dsa">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-sitemap"></i> DSA Problem Tracker</h2>
+                        <div class="dsa-stats">
+                            <span class="dsa-badge easy">Easy: <strong id="dsa-easy">0</strong></span>
+                            <span class="dsa-badge medium">Medium: <strong id="dsa-medium">0</strong></span>
+                            <span class="dsa-badge hard">Hard: <strong id="dsa-hard">0</strong></span>
+                            <span class="dsa-badge total">Total: <strong id="dsa-total">0</strong></span>
+                        </div>
+                    </div>
+                    <div id="dsa-content"></div>
+                </div>
+
+                <!-- ===== Fitness Tab ===== -->
+                <div class="tab-content" id="tab-fitness">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-dumbbell"></i> Fitness Tracker</h2>
+                    </div>
+                    <div class="fitness-today card">
+                        <h3><i class="fas fa-calendar-day"></i> Today's Workout</h3>
+                        <div id="fitness-today-content"></div>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-chart-bar"></i> Body Progress</h3>
+                        <div class="body-stats-grid" id="body-stats"></div>
+                    </div>
+                    <div id="fitness-plan-content"></div>
+                </div>
+
+                <!-- ===== Diet Tab ===== -->
+                <div class="tab-content" id="tab-diet">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-utensils"></i> Diet Plan</h2>
+                    </div>
+                    <div id="diet-content"></div>
+                </div>
+
+                <!-- ===== Profile Tab ===== -->
+                <div class="tab-content" id="tab-profile">
+                    <div class="profile-card card">
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profile-avatar">H</div>
+                            <h2 id="profile-name">Hema</h2>
+                            <p id="profile-email">hema@email.com</p>
+                        </div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="profile-day">1</span>
+                                <span class="profile-stat-label">Current Day</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="profile-streak">0</span>
+                                <span class="profile-stat-label">Best Streak</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="profile-total">0</span>
+                                <span class="profile-stat-label">Tasks Done</span>
+                            </div>
+                        </div>
+                        <div class="profile-details">
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-calendar-alt"></i> Start Date</span>
+                                <span id="profile-start">—</span>
+                            </div>
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-flag-checkered"></i> End Date</span>
+                                <span id="profile-end">—</span>
+                            </div>
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-weight-hanging"></i> Weight</span>
+                                <span id="profile-weight">—</span>
+                            </div>
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-ruler-vertical"></i> Height</span>
+                                <span id="profile-height">—</span>
+                            </div>
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-leaf"></i> Diet</span>
+                                <span id="profile-diet">—</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-danger w-full" onclick="resetChallenge()">
+                            <i class="fas fa-redo"></i> Reset Challenge
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <a class="bottom-nav-item active" data-tab="overview" onclick="switchTab('overview')">
+            <i class="fas fa-th-large"></i><span>Home</span>
+        </a>
+        <a class="bottom-nav-item" data-tab="daily" onclick="switchTab('daily')">
+            <i class="fas fa-calendar-day"></i><span>Daily</span>
+        </a>
+        <a class="bottom-nav-item" data-tab="dsa" onclick="switchTab('dsa')">
+            <i class="fas fa-code"></i><span>DSA</span>
+        </a>
+        <a class="bottom-nav-item" data-tab="fitness" onclick="switchTab('fitness')">
+            <i class="fas fa-dumbbell"></i><span>Fitness</span>
+        </a>
+        <a class="bottom-nav-item" data-tab="profile" onclick="switchTab('profile')">
+            <i class="fas fa-user"></i><span>Profile</span>
+        </a>
+    </nav>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -342,6 +342,15 @@
                 <a class="sidebar-link" data-tab="diet" onclick="switchTab('diet')">
                     <i class="fas fa-utensils"></i><span>Diet Plan</span>
                 </a>
+                <a class="sidebar-link" data-tab="pomodoro" onclick="switchTab('pomodoro')">
+                    <i class="fas fa-clock"></i><span>Pomodoro</span>
+                </a>
+                <a class="sidebar-link" data-tab="notes" onclick="switchTab('notes')">
+                    <i class="fas fa-sticky-note"></i><span>Notes</span>
+                </a>
+                <a class="sidebar-link" data-tab="analytics" onclick="switchTab('analytics')">
+                    <i class="fas fa-chart-pie"></i><span>Analytics</span>
+                </a>
                 <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
                     <i class="fas fa-user-circle"></i><span>Profile</span>
                 </a>
@@ -362,6 +371,9 @@
                 </button>
                 <div class="topbar-title" id="topbar-title">Overview</div>
                 <div class="topbar-right">
+                    <button class="btn btn-ghost btn-sm" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
                     <div class="streak-badge" id="streak-badge">
                         <i class="fas fa-fire-alt"></i>
                         <span id="streak-count">0</span> day streak
@@ -389,6 +401,13 @@
                                 <span id="progress-percent">0%</span>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Motivational Quote -->
+                    <div class="quote-banner" id="quote-banner">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p id="quote-text">Loading inspiration...</p>
+                        <span id="quote-author">—</span>
                     </div>
 
                     <div class="stats-grid">
@@ -426,6 +445,24 @@
                             <div class="stat-card-info">
                                 <span class="stat-card-value" id="stat-workouts">0</span>
                                 <span class="stat-card-label">Workouts Done</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa)">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-water">0</span>
+                                <span class="stat-card-label">Glasses Today</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #a855f7, #c084fc)">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="stat-card-info">
+                                <span class="stat-card-value" id="stat-sleep">—</span>
+                                <span class="stat-card-label">Sleep (hrs)</span>
                             </div>
                         </div>
                     </div>
@@ -537,6 +574,19 @@
                             <span class="dsa-badge total">Total: <strong id="dsa-total">0</strong></span>
                         </div>
                     </div>
+                    <div class="dsa-toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="dsa-search" placeholder="Search problems..." oninput="filterDSA()">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all" onclick="filterDSADifficulty('all')">All</button>
+                            <button class="filter-btn" data-filter="easy" onclick="filterDSADifficulty('easy')">Easy</button>
+                            <button class="filter-btn" data-filter="medium" onclick="filterDSADifficulty('medium')">Medium</button>
+                            <button class="filter-btn" data-filter="hard" onclick="filterDSADifficulty('hard')">Hard</button>
+                            <button class="filter-btn" data-filter="unsolved" onclick="filterDSADifficulty('unsolved')">Unsolved</button>
+                        </div>
+                    </div>
                     <div id="dsa-content"></div>
                 </div>
 
@@ -611,6 +661,178 @@
                         <button class="btn btn-danger w-full" onclick="resetChallenge()">
                             <i class="fas fa-redo"></i> Reset Challenge
                         </button>
+                        <div style="display:flex;gap:10px;margin-top:12px;">
+                            <button class="btn btn-outline" style="flex:1" onclick="exportData()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                            <label class="btn btn-outline" style="flex:1;cursor:pointer;">
+                                <i class="fas fa-upload"></i> Import
+                                <input type="file" accept=".json" onchange="importData(event)" style="display:none;">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Pomodoro Tab ===== -->
+                <div class="tab-content" id="tab-pomodoro">
+                    <div class="pomodoro-container">
+                        <div class="pomodoro-card card">
+                            <h2 class="pomodoro-title"><i class="fas fa-clock"></i> Pomodoro Timer</h2>
+                            <p class="pomodoro-subtitle" id="pomo-session-label">Focus Session</p>
+                            <div class="pomodoro-timer-ring">
+                                <svg class="pomo-ring" viewBox="0 0 200 200">
+                                    <circle class="pomo-ring-bg" cx="100" cy="100" r="88"></circle>
+                                    <circle class="pomo-ring-fill" id="pomo-ring-fill" cx="100" cy="100" r="88"
+                                        stroke-dasharray="553" stroke-dashoffset="0"></circle>
+                                </svg>
+                                <div class="pomo-time" id="pomo-time">25:00</div>
+                            </div>
+                            <div class="pomo-controls">
+                                <button class="btn btn-primary btn-lg" id="pomo-start" onclick="startPomodoro()">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                                <button class="btn btn-outline btn-lg" onclick="resetPomodoro()">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                            </div>
+                            <div class="pomo-presets">
+                                <button class="pomo-preset active" onclick="setPomoTime(25, this)">25 min</button>
+                                <button class="pomo-preset" onclick="setPomoTime(45, this)">45 min</button>
+                                <button class="pomo-preset" onclick="setPomoTime(60, this)">60 min</button>
+                                <button class="pomo-preset" onclick="setPomoTime(5, this)">5 min break</button>
+                                <button class="pomo-preset" onclick="setPomoTime(15, this)">15 min break</button>
+                            </div>
+                            <div class="pomo-stats">
+                                <div class="pomo-stat">
+                                    <span class="pomo-stat-value" id="pomo-sessions-today">0</span>
+                                    <span class="pomo-stat-label">Sessions Today</span>
+                                </div>
+                                <div class="pomo-stat">
+                                    <span class="pomo-stat-value" id="pomo-total-time">0h 0m</span>
+                                    <span class="pomo-stat-label">Total Focus</span>
+                                </div>
+                                <div class="pomo-stat">
+                                    <span class="pomo-stat-value" id="pomo-total-sessions">0</span>
+                                    <span class="pomo-stat-label">All Sessions</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Water Tracker -->
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-tint"></i> Water Tracker</h3>
+                            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px;">Target: 8+ glasses (3L+) daily</p>
+                            <div class="water-glasses" id="water-glasses"></div>
+                            <div class="water-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill water-bar" id="water-bar" style="width:0%"></div>
+                                </div>
+                                <span id="water-count-text">0 / 8 glasses</span>
+                            </div>
+                        </div>
+                        <!-- Sleep Tracker -->
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-bed"></i> Sleep Logger</h3>
+                            <div class="sleep-input">
+                                <div class="input-wrapper">
+                                    <i class="fas fa-moon"></i>
+                                    <input type="number" id="sleep-hours" placeholder="Hours slept" min="0" max="24" step="0.5">
+                                </div>
+                                <button class="btn btn-primary" onclick="logSleep()">Log</button>
+                            </div>
+                            <div class="sleep-history" id="sleep-history"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Notes Tab ===== -->
+                <div class="tab-content" id="tab-notes">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-sticky-note"></i> Notes & Code Snippets</h2>
+                        <button class="btn btn-primary" onclick="createNote()">
+                            <i class="fas fa-plus"></i> New Note
+                        </button>
+                    </div>
+                    <div class="notes-toolbar">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="notes-search" placeholder="Search notes..." oninput="filterNotes()">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-cat="all" onclick="filterNotesCat('all')">All</button>
+                            <button class="filter-btn" data-cat="cpp" onclick="filterNotesCat('cpp')">C++</button>
+                            <button class="filter-btn" data-cat="python" onclick="filterNotesCat('python')">Python</button>
+                            <button class="filter-btn" data-cat="dsa" onclick="filterNotesCat('dsa')">DSA</button>
+                            <button class="filter-btn" data-cat="general" onclick="filterNotesCat('general')">General</button>
+                        </div>
+                    </div>
+                    <div id="notes-list"></div>
+                    <!-- Note Editor Modal -->
+                    <div class="modal-overlay" id="note-modal">
+                        <div class="modal-card">
+                            <div class="modal-header">
+                                <h3 id="note-modal-title">New Note</h3>
+                                <button class="btn btn-ghost" onclick="closeNoteModal()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <div class="form-group">
+                                <label>Title</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-heading"></i>
+                                    <input type="text" id="note-title" placeholder="Note title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-tag"></i>
+                                    <select id="note-category">
+                                        <option value="general">General</option>
+                                        <option value="cpp">C++</option>
+                                        <option value="python">Python</option>
+                                        <option value="dsa">DSA</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Content (Markdown & Code supported)</label>
+                                <textarea id="note-content" rows="12" placeholder="Write your notes here...&#10;&#10;Use ``` for code blocks"></textarea>
+                            </div>
+                            <div class="modal-actions">
+                                <button class="btn btn-ghost" onclick="closeNoteModal()">Cancel</button>
+                                <button class="btn btn-primary" onclick="saveNote()"><i class="fas fa-save"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Analytics Tab ===== -->
+                <div class="tab-content" id="tab-analytics">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-chart-pie"></i> Weekly Analytics</h2>
+                    </div>
+                    <div class="analytics-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-chart-bar"></i> Tasks Completed Per Week</h3>
+                            <div class="chart-container" id="weekly-chart"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-bullseye"></i> Category Breakdown</h3>
+                            <div class="donut-chart-container">
+                                <div class="donut-chart" id="category-chart"></div>
+                                <div class="donut-legend" id="category-legend"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-history"></i> Daily Activity (Last 14 Days)</h3>
+                            <div class="chart-container" id="daily-chart"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-award"></i> Achievements</h3>
+                            <div class="achievements-grid" id="achievements"></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-calendar"></i> Weekly Summary</h3>
+                        <div id="weekly-summary"></div>
                     </div>
                 </div>
             </div>
@@ -636,8 +858,35 @@
         </a>
     </nav>
 
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Keyboard Shortcuts Helper -->
+    <div class="kbd-help" id="kbd-help">
+        <div class="kbd-help-card">
+            <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+            <div class="kbd-list">
+                <div class="kbd-item"><kbd>1</kbd> Overview</div>
+                <div class="kbd-item"><kbd>2</kbd> Daily Tasks</div>
+                <div class="kbd-item"><kbd>3</kbd> C++ Roadmap</div>
+                <div class="kbd-item"><kbd>4</kbd> Python Roadmap</div>
+                <div class="kbd-item"><kbd>5</kbd> DSA Problems</div>
+                <div class="kbd-item"><kbd>6</kbd> Fitness</div>
+                <div class="kbd-item"><kbd>7</kbd> Diet Plan</div>
+                <div class="kbd-item"><kbd>P</kbd> Pomodoro</div>
+                <div class="kbd-item"><kbd>N</kbd> Notes</div>
+                <div class="kbd-item"><kbd>A</kbd> Analytics</div>
+                <div class="kbd-item"><kbd>T</kbd> Toggle Theme</div>
+                <div class="kbd-item"><kbd>?</kbd> This Help</div>
+                <div class="kbd-item"><kbd>←</kbd><kbd>→</kbd> Prev/Next Day</div>
+            </div>
+            <button class="btn btn-ghost" onclick="document.getElementById('kbd-help').classList.remove('active')">Close</button>
+        </div>
+    </div>
+
     <script src="js/data.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/features.js"></script>
 </body>
 </html>

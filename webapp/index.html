@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/advanced.css">
     <link rel="stylesheet" href="css/extended.css">
     <link rel="stylesheet" href="css/extended2.css">
+    <link rel="stylesheet" href="css/enhanced-daily.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -593,6 +594,17 @@
                         </button>
                     </div>
                     <div class="daily-date" id="daily-date"></div>
+                    <!-- Streak Calendar -->
+                    <div class="card" style="margin-bottom:16px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                            <span style="font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:6px;"><i class="fas fa-fire-alt" style="color:var(--warning);"></i> Activity</span>
+                            <button class="btn btn-ghost btn-sm" id="focus-mode-btn" onclick="toggleFocusMode()"><i class="fas fa-expand"></i> Focus</button>
+                        </div>
+                        <div id="streak-mini-calendar"></div>
+                    </div>
+                    <!-- Daily Challenge -->
+                    <div id="daily-challenge-card"></div>
+                    <!-- Tasks -->
                     <div id="daily-tasks-container"></div>
                     <div class="daily-reflection">
                         <h3><i class="fas fa-pen-fancy"></i> Daily Reflection</h3>
@@ -1662,5 +1674,6 @@
     <script src="js/exercise-library.js"></script>
     <script src="js/competitive-timer.js"></script>
     <script src="js/cheatsheets.js"></script>
+    <script src="js/enhanced-daily.js"></script>
 </body>
 </html>

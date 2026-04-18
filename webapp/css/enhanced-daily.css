@@ -1,0 +1,927 @@
+/* ============================================
+   ENHANCED DAILY TASKS CSS
+   Beautiful task cards, animations,
+   mini dashboard, streak calendar,
+   focus mode, completion celebrations
+   ============================================ */
+
+/* ===== Today Banner ===== */
+.ed-today-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(6, 182, 212, 0.1));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: var(--accent-1);
+    font-size: 0.9rem;
+}
+
+.ed-today-pulse {
+    width: 10px;
+    height: 10px;
+    background: var(--accent-1);
+    border-radius: 50%;
+    animation: pulse-glow 2s infinite;
+}
+
+.ed-past-banner, .ed-future-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ===== Mini Dashboard ===== */
+.ed-mini-dashboard {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.ed-progress-ring-wrap {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    grid-row: 1 / 3;
+}
+
+.ed-ring {
+    width: 100px;
+    height: 100px;
+}
+
+.ed-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ed-ring-pct {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.ed-ring-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.ed-mini-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.ed-mini-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ed-mini-stat i {
+    font-size: 1.1rem;
+}
+
+.ed-mini-val {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.ed-mini-lbl {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.ed-category-bars {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    grid-column: 2;
+}
+
+.ed-cat-bar {
+    flex: 1;
+    min-width: 100px;
+}
+
+.ed-cat-bar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+    color: var(--text-secondary);
+}
+
+.ed-cat-bar-track {
+    height: 6px;
+    background: var(--glass);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.ed-cat-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+/* ===== Tip Card ===== */
+.ed-tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(6, 182, 212, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    border-left: 4px solid var(--warning);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+}
+
+.ed-tip-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.ed-tip-content strong {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    color: var(--warning);
+}
+
+.ed-tip-content p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ===== Category Sections ===== */
+.ed-category {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.ed-category.all-done {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.ed-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    transition: var(--transition);
+    gap: 12px;
+}
+
+.ed-category-header:hover {
+    background: var(--glass);
+}
+
+.ed-category-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ed-category-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.ed-category-name {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.ed-complete-badge {
+    font-size: 0.7rem;
+    color: var(--success);
+    font-weight: 600;
+    margin-left: 8px;
+    padding: 2px 8px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 50px;
+}
+
+.ed-category-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ed-category-progress {
+    width: 60px;
+    height: 4px;
+    background: var(--glass);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.ed-category-progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+}
+
+.ed-category-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    min-width: 30px;
+    text-align: right;
+}
+
+.ed-chevron {
+    color: var(--text-muted);
+    transition: var(--transition);
+    font-size: 0.8rem;
+}
+
+.ed-category-tasks.collapsed {
+    display: none;
+}
+
+.ed-category-tasks {
+    padding: 0 18px 14px;
+}
+
+/* ===== Individual Tasks ===== */
+.ed-task {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+}
+
+.ed-task:last-child {
+    border-bottom: none;
+}
+
+.ed-task.completed .ed-task-text {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.ed-task.completed .ed-task-main {
+    opacity: 0.7;
+}
+
+.ed-task.completing {
+    animation: taskComplete 0.5s ease;
+}
+
+@keyframes taskComplete {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.02); background: rgba(16, 185, 129, 0.08); }
+    60% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+}
+
+.ed-task-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+}
+
+/* Custom Checkbox */
+.ed-checkbox-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.ed-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ed-checkbox-custom {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--glass-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.ed-checkbox-custom::after {
+    content: '';
+    width: 6px;
+    height: 12px;
+    border: 2px solid white;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.2s ease;
+    margin-top: -2px;
+}
+
+.ed-checkbox:checked + .ed-checkbox-custom {
+    background: var(--gradient);
+    border-color: transparent;
+    animation: checkBounce 0.4s ease;
+}
+
+.ed-checkbox:checked + .ed-checkbox-custom::after {
+    transform: rotate(45deg) scale(1);
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.2); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.ed-checkbox-custom:hover {
+    border-color: var(--accent-1);
+    transform: scale(1.05);
+}
+
+.ed-task-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.ed-task-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.ed-task-meta {
+    display: flex;
+    gap: 8px;
+    margin-top: 3px;
+    flex-wrap: wrap;
+}
+
+.ed-task-time {
+    font-size: 0.7rem;
+    color: var(--accent-3);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.ed-task-difficulty {
+    font-size: 0.65rem;
+    padding: 1px 8px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.ed-task-difficulty.easy { background: rgba(16,185,129,0.12); color: var(--success); }
+.ed-task-difficulty.medium { background: rgba(245,158,11,0.12); color: var(--warning); }
+.ed-task-difficulty.hard { background: rgba(239,68,68,0.12); color: var(--danger); }
+
+.ed-task-has-note {
+    font-size: 0.7rem;
+    color: var(--accent-1);
+}
+
+/* Task Actions */
+.ed-task-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.ed-action-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: var(--transition);
+    font-size: 0.8rem;
+}
+
+.ed-action-btn:hover {
+    background: var(--glass);
+    color: var(--text-primary);
+}
+
+.ed-action-btn.timing {
+    color: var(--danger);
+    animation: pulse-glow 1.5s infinite;
+}
+
+.ed-timer-display {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-3);
+    min-width: 40px;
+}
+
+.ed-timer-display.timer-active {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+/* Task Notes */
+.ed-task-note {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 0 0 36px;
+}
+
+.ed-task-note.open {
+    max-height: 300px;
+    padding: 8px 0 12px 36px;
+}
+
+.ed-task-note textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    resize: none;
+    outline: none;
+    min-height: 60px;
+    transition: var(--transition);
+}
+
+.ed-task-note textarea:focus {
+    border-color: var(--accent-1);
+}
+
+.ed-note-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ed-difficulty-btns {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.diff-btn {
+    padding: 3px 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.diff-btn:hover { border-color: var(--accent-1); }
+.diff-btn.active[data-diff="easy"] { background: rgba(16,185,129,0.15); border-color: var(--success); color: var(--success); }
+.diff-btn.active[data-diff="medium"] { background: rgba(245,158,11,0.15); border-color: var(--warning); color: var(--warning); }
+.diff-btn.active[data-diff="hard"] { background: rgba(239,68,68,0.15); border-color: var(--danger); color: var(--danger); }
+
+/* ===== Summary Card ===== */
+.ed-summary-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(99, 102, 241, 0.05));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-top: 16px;
+}
+
+.ed-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--success);
+}
+
+.ed-summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.ed-summary-stat {
+    text-align: center;
+    padding: 12px 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius);
+}
+
+.ed-summary-stat .val {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--accent-1);
+}
+
+.ed-summary-stat .lbl {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.ed-summary-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ed-summary-cat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+}
+
+.ed-summary-cat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ed-summary-cat-val {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* ===== Completion Overlay ===== */
+.ed-complete-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.ed-complete-card {
+    text-align: center;
+    background: var(--bg-secondary);
+    border: 2px solid rgba(16, 185, 129, 0.5);
+    border-radius: 24px;
+    padding: 48px 40px;
+    max-width: 380px;
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 0 60px rgba(16, 185, 129, 0.15);
+}
+
+.ed-complete-icon {
+    font-size: 4rem;
+    margin-bottom: 12px;
+    animation: float 2s ease-in-out infinite;
+}
+
+.ed-complete-card h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+}
+
+.ed-complete-card p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.ed-complete-stars {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    animation: starPulse 1.5s ease infinite;
+}
+
+@keyframes starPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ===== Streak Mini Calendar ===== */
+.ed-streak-row {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 4px 0;
+    justify-content: center;
+}
+
+.ed-streak-cell {
+    width: 40px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+    background: var(--glass);
+}
+
+.ed-streak-cell:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-1);
+}
+
+.ed-streak-cell.today {
+    border-color: var(--accent-1);
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.ed-streak-cell.level-1 { background: rgba(99, 102, 241, 0.1); }
+.ed-streak-cell.level-2 { background: rgba(99, 102, 241, 0.2); }
+.ed-streak-cell.level-3 { background: rgba(99, 102, 241, 0.35); }
+.ed-streak-cell.level-4 { background: rgba(99, 102, 241, 0.5); }
+
+.ed-streak-day {
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.ed-streak-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* ===== Daily Challenge Card ===== */
+.ed-challenge {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(239, 68, 68, 0.05));
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+.ed-challenge.done {
+    opacity: 0.7;
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.03);
+}
+
+.ed-challenge-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ed-challenge-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ed-challenge-icon {
+    font-size: 1.5rem;
+}
+
+.ed-challenge-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: block;
+}
+
+.ed-challenge-diff {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.ed-challenge-done-badge {
+    font-size: 0.75rem;
+    color: var(--success);
+    font-weight: 600;
+    padding: 3px 10px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 50px;
+}
+
+.ed-challenge-name {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.ed-challenge-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.ed-challenge-details {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.ed-challenge-details summary {
+    cursor: pointer;
+    color: var(--accent-3);
+    font-weight: 500;
+}
+
+.ed-challenge-details p {
+    margin-top: 4px;
+}
+
+.ed-challenge-tests {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.ed-challenge-tests code {
+    display: block;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #a5b4fc;
+}
+
+.ed-challenge-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ===== Focus Mode ===== */
+body.focus-mode .sidebar,
+body.focus-mode .bottom-nav,
+body.focus-mode .topbar,
+body.focus-mode .ed-tip-card,
+body.focus-mode .ed-mini-dashboard,
+body.focus-mode .daily-reflection {
+    display: none !important;
+}
+
+body.focus-mode .dashboard-main {
+    margin-left: 0 !important;
+}
+
+body.focus-mode .dashboard-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+body.focus-mode .ed-category-header {
+    pointer-events: none;
+}
+
+body.focus-mode .ed-chevron {
+    display: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .ed-mini-dashboard {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .ed-progress-ring-wrap {
+        grid-row: auto;
+        margin: 0 auto;
+    }
+
+    .ed-mini-stats {
+        justify-content: center;
+    }
+
+    .ed-category-bars {
+        grid-column: auto;
+    }
+
+    .ed-task-actions {
+        gap: 2px;
+    }
+
+    .ed-timer-display {
+        display: none;
+    }
+
+    .ed-summary-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .ed-streak-cell {
+        width: 34px;
+        height: 44px;
+    }
+
+    .ed-complete-card {
+        padding: 32px 24px;
+        margin: 0 16px;
+    }
+
+    .ed-category-progress {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .ed-mini-stat i {
+        display: none;
+    }
+
+    .ed-action-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.7rem;
+    }
+
+    .ed-task-text {
+        font-size: 0.85rem;
+    }
+
+    .ed-streak-cell {
+        width: 30px;
+        height: 40px;
+    }
+
+    .ed-streak-day {
+        font-size: 0.5rem;
+    }
+
+    .ed-streak-num {
+        font-size: 0.75rem;
+    }
+
+    .ed-challenge-actions {
+        flex-direction: column;
+    }
+
+    .ed-note-actions {
+        flex-direction: column;
+    }
+}

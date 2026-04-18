@@ -1422,3 +1422,428 @@ if (_origRenderDaily) {
         setTimeout(() => renderDailyTip(day), 50);
     };
 }
+
+
+// ===== SHARE YOUR STORY =====
+let shareTheme = 'galaxy';
+let shareType = 'progress';
+
+function selectStoryType(type, el) {
+    shareType = type;
+    document.querySelectorAll('.share-type-btn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    updateStoryPreview();
+}
+
+function setShareTheme(theme, el) {
+    shareTheme = theme;
+    document.querySelectorAll('.share-theme').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    updateStoryPreview();
+}
+
+function updateStoryPreview() {
+    const user = getCurrentUser();
+    const data = getChallengeData();
+    if (!user || !data) return;
+
+    const startDate = new Date(user.startDate);
+    const today = new Date();
+    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / 86400000) + 1));
+
+    // Set theme background
+    const bg = document.getElementById('share-card-bg');
+    if (bg) {
+        bg.className = 'share-card-bg ' + shareTheme;
+    }
+
+    // Name & avatar
+    const firstName = user.name.split(' ')[0];
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    const setHTML = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
+
+    setEl('share-card-name', user.name);
+    setEl('share-card-avatar', firstName.charAt(0).toUpperCase());
+
+    // Custom message
+    const customMsg = document.getElementById('share-message')?.value || '';
+
+    // Calculate stats
+    const totalTasks = Object.values(data.dailyTasks || {}).reduce((sum, day) =>
+        sum + Object.values(day || {}).filter(v => v === true).length, 0);
+    const dsaSolved = Object.values(data.roadmapProgress?.dsa || {}).filter(v => v).length;
+    const streak = data.bestStreak || data.streak || 0;
+    const workouts = data.workoutsDone || 0;
+    const pct = Math.round((currentDay / 90) * 100);
+
+    // Progress bar
+    const fill = document.getElementById('share-progress-fill');
+    if (fill) fill.style.width = `${pct}%`;
+    setEl('share-progress-label', `Day ${currentDay} / 90 — ${pct}% complete`);
+
+    // Date
+    setEl('share-card-date', today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+
+    // Type-specific content
+    if (shareType === 'progress') {
+        setEl('share-card-message', customMsg || `Day ${currentDay} of my 90-day coding & fitness journey!`);
+        setHTML('share-card-stats', `
+            <div class="share-stat">
+                <span class="share-stat-value">${currentDay}</span>
+                <span class="share-stat-label">Days</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${dsaSolved}</span>
+                <span class="share-stat-label">DSA Solved</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${totalTasks}</span>
+                <span class="share-stat-label">Tasks Done</span>
+            </div>
+        `);
+    } else if (shareType === 'milestone') {
+        const milestone = currentDay >= 90 ? '90 Days Complete!' :
+            currentDay >= 60 ? 'Phase 3 Reached!' :
+            currentDay >= 30 ? 'Phase 2 Reached!' :
+            currentDay >= 7 ? `Week ${Math.ceil(currentDay / 7)} Complete!` :
+            'Challenge Started!';
+        setEl('share-card-message', customMsg || milestone);
+        setHTML('share-card-stats', `
+            <div class="share-stat">
+                <span class="share-stat-value">${Math.ceil(currentDay / 7)}</span>
+                <span class="share-stat-label">Weeks</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${dsaSolved}</span>
+                <span class="share-stat-label">Problems</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${workouts}</span>
+                <span class="share-stat-label">Workouts</span>
+            </div>
+        `);
+    } else if (shareType === 'streak') {
+        setEl('share-card-message', customMsg || `${streak} day streak and counting! Consistency is key.`);
+        setHTML('share-card-stats', `
+            <div class="share-stat">
+                <span class="share-stat-value">🔥 ${streak}</span>
+                <span class="share-stat-label">Day Streak</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${totalTasks}</span>
+                <span class="share-stat-label">Tasks Done</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${pct}%</span>
+                <span class="share-stat-label">Complete</span>
+            </div>
+        `);
+    } else if (shareType === 'reflection') {
+        const reflection = data.reflections?.[currentDay] || data.reflections?.[currentDay - 1] || '';
+        setEl('share-card-message', customMsg || reflection || 'Every day is a step forward on this journey.');
+        setHTML('share-card-stats', `
+            <div class="share-stat">
+                <span class="share-stat-value">${currentDay}</span>
+                <span class="share-stat-label">Day</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${dsaSolved}</span>
+                <span class="share-stat-label">Problems</span>
+            </div>
+            <div class="share-stat">
+                <span class="share-stat-value">${streak}</span>
+                <span class="share-stat-label">Streak</span>
+            </div>
+        `);
+    }
+
+    // Badges
+    const badges = [];
+    if (totalTasks > 0) badges.push('🚀');
+    if (streak >= 7) badges.push('🔥');
+    if (currentDay >= 30) badges.push('💪');
+    if (currentDay >= 60) badges.push('🏆');
+    if (currentDay >= 90) badges.push('👑');
+    if (dsaSolved >= 10) badges.push('🧩');
+    if (dsaSolved >= 50) badges.push('⚡');
+    if (workouts >= 10) badges.push('💯');
+
+    setHTML('share-card-badges', badges.map(b => `<span class="share-badge">${b}</span>`).join(''));
+}
+
+function downloadStoryCard() {
+    const card = document.getElementById('share-card');
+    if (!card) return;
+
+    // Use canvas to render the card
+    const canvas = document.createElement('canvas');
+    const scale = 2; // Higher res
+    canvas.width = card.offsetWidth * scale;
+    canvas.height = card.offsetHeight * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    // Draw background gradient
+    const themes = {
+        galaxy: ['#0f0c29', '#302b63', '#24243e'],
+        ocean: ['#0c4a6e', '#0369a1', '#0891b2'],
+        sunset: ['#7c2d12', '#c2410c', '#ea580c'],
+        forest: ['#064e3b', '#065f46', '#047857'],
+        neon: ['#1a1a2e', '#16213e', '#0f3460'],
+        minimal: ['#1e293b', '#334155', '#475569'],
+    };
+    const colors = themes[shareTheme] || themes.galaxy;
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width / scale, canvas.height / scale);
+    gradient.addColorStop(0, colors[0]);
+    gradient.addColorStop(0.5, colors[1]);
+    gradient.addColorStop(1, colors[2]);
+    ctx.fillStyle = gradient;
+    ctx.roundRect(0, 0, canvas.width / scale, canvas.height / scale, 20);
+    ctx.fill();
+
+    // Draw content
+    const w = card.offsetWidth;
+    const pad = 28;
+    ctx.fillStyle = 'white';
+
+    // Brand
+    ctx.font = '700 13px Inter, sans-serif';
+    ctx.globalAlpha = 0.9;
+    ctx.fillText('🔥 90 Days Challenge', pad, pad + 14);
+
+    // Avatar
+    const user = getCurrentUser();
+    const firstName = user?.name?.split(' ')[0] || 'U';
+    ctx.globalAlpha = 0.15;
+    ctx.beginPath();
+    ctx.arc(w - pad - 20, pad + 8, 20, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.font = '800 14px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(firstName.charAt(0).toUpperCase(), w - pad - 20, pad + 13);
+    ctx.textAlign = 'left';
+
+    // Name
+    ctx.font = '800 20px Inter, sans-serif';
+    ctx.fillText(user?.name || 'Challenger', pad, pad + 50);
+
+    // Message
+    ctx.font = 'italic 14px Inter, sans-serif';
+    ctx.globalAlpha = 0.85;
+    const msg = document.getElementById('share-card-message')?.textContent || '';
+    wrapText(ctx, msg, pad, pad + 75, w - pad * 2, 20);
+
+    // Stats boxes
+    ctx.globalAlpha = 1;
+    const statsEl = document.getElementById('share-card-stats');
+    const statEls = statsEl?.querySelectorAll('.share-stat') || [];
+    const statWidth = (w - pad * 2 - 20) / 3;
+    let statY = pad + 120;
+
+    statEls.forEach((stat, i) => {
+        const x = pad + i * (statWidth + 10);
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.roundRect(x, statY, statWidth, 55, 12);
+        ctx.fill();
+
+        ctx.fillStyle = 'white';
+        const val = stat.querySelector('.share-stat-value')?.textContent || '';
+        const label = stat.querySelector('.share-stat-label')?.textContent || '';
+        ctx.font = '800 18px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(val, x + statWidth / 2, statY + 25);
+        ctx.font = '600 8px Inter, sans-serif';
+        ctx.globalAlpha = 0.7;
+        ctx.fillText(label.toUpperCase(), x + statWidth / 2, statY + 42);
+        ctx.globalAlpha = 1;
+    });
+    ctx.textAlign = 'left';
+
+    // Progress bar
+    const barY = statY + 70;
+    const data = getChallengeData();
+    const startDate = new Date(user.startDate);
+    const today = new Date();
+    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / 86400000) + 1));
+    const pct = currentDay / 90;
+
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.roundRect(pad, barY, w - pad * 2, 8, 4);
+    ctx.fill();
+
+    const progGrad = ctx.createLinearGradient(pad, 0, pad + (w - pad * 2) * pct, 0);
+    progGrad.addColorStop(0, '#fbbf24');
+    progGrad.addColorStop(1, '#ef4444');
+    ctx.fillStyle = progGrad;
+    ctx.roundRect(pad, barY, (w - pad * 2) * pct, 8, 4);
+    ctx.fill();
+
+    ctx.fillStyle = 'white';
+    ctx.globalAlpha = 0.7;
+    ctx.font = '500 10px Inter, sans-serif';
+    ctx.fillText(`Day ${currentDay} / 90 — ${Math.round(pct * 100)}% complete`, pad, barY + 22);
+
+    // Footer
+    ctx.globalAlpha = 0.5;
+    ctx.font = '400 9px Inter, sans-serif';
+    const footerY = barY + 50;
+    ctx.fillText('#90DaysChallenge', pad, footerY);
+    ctx.textAlign = 'right';
+    ctx.fillText(today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }), w - pad, footerY);
+    ctx.textAlign = 'left';
+    ctx.globalAlpha = 1;
+
+    // Download
+    const link = document.createElement('a');
+    link.download = `90days_story_day${currentDay}_${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    // Save to history
+    saveStoryToHistory(shareType, shareTheme, msg);
+    showToast('Story card downloaded!', 'success');
+    if (typeof launchConfetti === 'function') launchConfetti();
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+    const words = text.split(' ');
+    let line = '';
+    let currentY = y;
+
+    for (const word of words) {
+        const testLine = line + word + ' ';
+        if (ctx.measureText(testLine).width > maxWidth && line) {
+            ctx.fillText(line.trim(), x, currentY);
+            line = word + ' ';
+            currentY += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    ctx.fillText(line.trim(), x, currentY);
+}
+
+function getShareText() {
+    const user = getCurrentUser();
+    const data = getChallengeData();
+    if (!user || !data) return '';
+
+    const startDate = new Date(user.startDate);
+    const today = new Date();
+    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / 86400000) + 1));
+    const dsaSolved = Object.values(data.roadmapProgress?.dsa || {}).filter(v => v).length;
+    const totalTasks = Object.values(data.dailyTasks || {}).reduce((sum, d) =>
+        sum + Object.values(d || {}).filter(v => v === true).length, 0);
+    const customMsg = document.getElementById('share-message')?.value || '';
+
+    return `${customMsg ? customMsg + '\n\n' : ''}📊 My 90 Days Challenge Progress:\n` +
+        `📅 Day ${currentDay} / 90 (${Math.round(currentDay / 90 * 100)}%)\n` +
+        `✅ ${totalTasks} tasks completed\n` +
+        `🧩 ${dsaSolved} DSA problems solved\n` +
+        `🔥 ${data.bestStreak || 0} day best streak\n\n` +
+        `#90DaysChallenge #Coding #DSA #Fitness`;
+}
+
+function copyStoryText() {
+    const text = getShareText();
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('Story text copied!', 'success');
+    });
+}
+
+function shareToTwitter() {
+    const text = encodeURIComponent(getShareText());
+    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'noopener');
+}
+
+function shareToLinkedIn() {
+    const text = encodeURIComponent(getShareText());
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://github.com/Hemakotibonthada/90daysChallange')}&summary=${text}`, '_blank', 'noopener');
+}
+
+function shareToWhatsApp() {
+    const text = encodeURIComponent(getShareText());
+    window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener');
+}
+
+function shareNative() {
+    if (navigator.share) {
+        navigator.share({
+            title: '90 Days Challenge — My Progress',
+            text: getShareText(),
+            url: 'https://github.com/Hemakotibonthada/90daysChallange'
+        }).catch(() => {});
+    } else {
+        copyStoryText();
+    }
+}
+
+function saveStoryToHistory(type, theme, message) {
+    const data = getChallengeData();
+    if (!data) return;
+    if (!data.sharedStories) data.sharedStories = [];
+
+    const user = getCurrentUser();
+    const startDate = new Date(user.startDate);
+    const today = new Date();
+    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / 86400000) + 1));
+
+    data.sharedStories.push({
+        type, theme, message,
+        day: currentDay,
+        date: new Date().toISOString()
+    });
+
+    if (data.sharedStories.length > 30) data.sharedStories = data.sharedStories.slice(-30);
+    saveChallengeData(data);
+    renderSharedStories();
+}
+
+function renderSharedStories() {
+    const data = getChallengeData();
+    const container = document.getElementById('shared-stories-list');
+    if (!container) return;
+
+    const stories = (data?.sharedStories || []).slice().reverse().slice(0, 15);
+
+    if (stories.length === 0) {
+        container.innerHTML = '<div class="empty-state"><i class="fas fa-share-alt"></i><p>No stories shared yet. Create and share your first one!</p></div>';
+        return;
+    }
+
+    const typeLabels = { progress: 'Progress Card', milestone: 'Milestone', streak: 'Streak', reflection: 'Reflection' };
+
+    container.innerHTML = stories.map(s => {
+        const date = new Date(s.date).toLocaleDateString('en', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        return `
+            <div class="story-card">
+                <div class="story-thumb ${s.theme}"></div>
+                <div class="story-info">
+                    <h4>${typeLabels[s.type] || 'Story'} — Day ${s.day}</h4>
+                    <span>${date}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ===== INIT SHARE TAB =====
+function initShareTab() {
+    updateStoryPreview();
+    renderSharedStories();
+}
+
+// Hook into tab switching
+const _origSwitch3 = typeof switchTab === 'function' ? switchTab : null;
+if (_origSwitch3) {
+    const origSw3 = switchTab;
+    switchTab = function(tabName) {
+        origSw3(tabName);
+        if (tabName === 'share') {
+            const el = document.getElementById('topbar-title');
+            if (el) el.textContent = 'Share Your Story';
+            initShareTab();
+        }
+    };
+}

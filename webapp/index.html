@@ -390,6 +390,9 @@
                 <a class="sidebar-link" data-tab="whiteboard" onclick="switchTab('whiteboard')">
                     <i class="fas fa-paint-brush"></i><span>Whiteboard</span>
                 </a>
+                <a class="sidebar-link" data-tab="share" onclick="switchTab('share')">
+                    <i class="fas fa-share-alt"></i><span>Share Story</span>
+                </a>
                 <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
                     <i class="fas fa-user-circle"></i><span>Profile</span>
                 </a>
@@ -1211,6 +1214,112 @@
                     </div>
                     <div class="wb-canvas-container">
                         <canvas id="whiteboard-canvas" width="1200" height="700"></canvas>
+                    </div>
+                </div>
+
+                <!-- ===== Share Your Story Tab ===== -->
+                <div class="tab-content" id="tab-share">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-share-alt"></i> Share Your Story</h2>
+                    </div>
+
+                    <!-- Story Type Selector -->
+                    <div class="share-type-selector">
+                        <button class="share-type-btn active" onclick="selectStoryType('progress', this)">
+                            <i class="fas fa-chart-line"></i> Progress Card
+                        </button>
+                        <button class="share-type-btn" onclick="selectStoryType('milestone', this)">
+                            <i class="fas fa-trophy"></i> Milestone
+                        </button>
+                        <button class="share-type-btn" onclick="selectStoryType('streak', this)">
+                            <i class="fas fa-fire"></i> Streak
+                        </button>
+                        <button class="share-type-btn" onclick="selectStoryType('reflection', this)">
+                            <i class="fas fa-pen-fancy"></i> Reflection
+                        </button>
+                    </div>
+
+                    <!-- Theme Selector -->
+                    <div class="share-theme-row">
+                        <span style="font-size:0.85rem;color:var(--text-secondary);">Card Theme:</span>
+                        <div class="share-themes">
+                            <button class="share-theme active" data-theme="galaxy" onclick="setShareTheme('galaxy', this)" title="Galaxy"></button>
+                            <button class="share-theme" data-theme="ocean" onclick="setShareTheme('ocean', this)" title="Ocean"></button>
+                            <button class="share-theme" data-theme="sunset" onclick="setShareTheme('sunset', this)" title="Sunset"></button>
+                            <button class="share-theme" data-theme="forest" onclick="setShareTheme('forest', this)" title="Forest"></button>
+                            <button class="share-theme" data-theme="neon" onclick="setShareTheme('neon', this)" title="Neon"></button>
+                            <button class="share-theme" data-theme="minimal" onclick="setShareTheme('minimal', this)" title="Minimal"></button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Message -->
+                    <div class="form-group" style="margin-bottom:16px;">
+                        <label>Your Message (optional)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-comment"></i>
+                            <input type="text" id="share-message" placeholder="e.g., Day 30 done! Feeling unstoppable!" maxlength="120" oninput="updateStoryPreview()">
+                        </div>
+                    </div>
+
+                    <!-- Live Preview -->
+                    <div class="share-preview-wrapper">
+                        <h3 class="card-title"><i class="fas fa-eye"></i> Preview</h3>
+                        <div class="share-preview-container">
+                            <div class="share-card" id="share-card">
+                                <div class="share-card-bg" id="share-card-bg"></div>
+                                <div class="share-card-content">
+                                    <div class="share-card-header">
+                                        <div class="share-card-brand">
+                                            <i class="fas fa-fire"></i>
+                                            <span>90 Days Challenge</span>
+                                        </div>
+                                        <div class="share-card-avatar" id="share-card-avatar">H</div>
+                                    </div>
+                                    <div class="share-card-name" id="share-card-name">Hema Koteswar Naidu</div>
+                                    <div class="share-card-message" id="share-card-message"></div>
+                                    <div class="share-card-stats" id="share-card-stats"></div>
+                                    <div class="share-card-progress">
+                                        <div class="share-progress-bar">
+                                            <div class="share-progress-fill" id="share-progress-fill"></div>
+                                        </div>
+                                        <span class="share-progress-label" id="share-progress-label">Day 1 / 90</span>
+                                    </div>
+                                    <div class="share-card-badges" id="share-card-badges"></div>
+                                    <div class="share-card-footer">
+                                        <span>#90DaysChallenge</span>
+                                        <span id="share-card-date"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Share Actions -->
+                    <div class="share-actions">
+                        <button class="btn btn-primary btn-lg" onclick="downloadStoryCard()">
+                            <i class="fas fa-download"></i> Download Image
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="copyStoryText()">
+                            <i class="fas fa-copy"></i> Copy Text
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="shareToTwitter()">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="shareToLinkedIn()">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="shareToWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="shareNative()">
+                            <i class="fas fa-share"></i> More
+                        </button>
+                    </div>
+
+                    <!-- Past Stories -->
+                    <div class="card" style="margin-top:20px;">
+                        <h3 class="card-title"><i class="fas fa-history"></i> Shared Stories</h3>
+                        <div id="shared-stories-list"></div>
                     </div>
                 </div>
             </div>

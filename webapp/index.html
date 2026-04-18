@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="css/extended.css">
     <link rel="stylesheet" href="css/extended2.css">
     <link rel="stylesheet" href="css/enhanced-daily.css">
+    <link rel="stylesheet" href="css/mega-features.css">
+    <link rel="stylesheet" href="css/resume-social.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -419,6 +421,21 @@
                 </a>
                 <a class="sidebar-link" data-tab="cheatsheets" onclick="switchTab('cheatsheets')">
                     <i class="fas fa-scroll"></i><span>Cheatsheets</span>
+                </a>
+                <a class="sidebar-link" data-tab="visualizer" onclick="switchTab('visualizer')">
+                    <i class="fas fa-project-diagram"></i><span>Visualizer</span>
+                </a>
+                <a class="sidebar-link" data-tab="typing" onclick="switchTab('typing')">
+                    <i class="fas fa-keyboard"></i><span>Typing Test</span>
+                </a>
+                <a class="sidebar-link" data-tab="kanban" onclick="switchTab('kanban')">
+                    <i class="fas fa-columns"></i><span>Kanban</span>
+                </a>
+                <a class="sidebar-link" data-tab="resume" onclick="switchTab('resume')">
+                    <i class="fas fa-file-alt"></i><span>Resume</span>
+                </a>
+                <a class="sidebar-link" data-tab="feed" onclick="switchTab('feed')">
+                    <i class="fas fa-rss"></i><span>Community</span>
                 </a>
                 <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
                     <i class="fas fa-user-circle"></i><span>Profile</span>
@@ -1610,6 +1627,151 @@
                     <div class="roadmap-header"><h2><i class="fas fa-scroll"></i> Quick Reference Cheatsheets</h2></div>
                     <div id="cheatsheets-content"></div>
                 </div>
+
+                <!-- ===== Algorithm Visualizer Tab ===== -->
+                <div class="tab-content" id="tab-visualizer">
+                    <div class="roadmap-header"><h2><i class="fas fa-project-diagram"></i> Algorithm Visualizer</h2></div>
+                    <!-- Sorting Visualizer -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-sort"></i> Sorting Algorithms</h3>
+                        <div class="viz-container">
+                            <div id="viz-bars"></div>
+                            <div class="viz-controls">
+                                <select class="viz-select" id="viz-algorithm">
+                                    <option value="bubble">Bubble Sort</option>
+                                    <option value="selection">Selection Sort</option>
+                                    <option value="insertion">Insertion Sort</option>
+                                    <option value="merge">Merge Sort</option>
+                                    <option value="quick">Quick Sort</option>
+                                    <option value="heap">Heap Sort</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" id="viz-start-btn" onclick="startViz()"><i class="fas fa-play"></i> Start</button>
+                                <button class="btn btn-outline btn-sm" id="viz-pause-btn" onclick="pauseViz()"><i class="fas fa-pause"></i> Pause</button>
+                                <button class="btn btn-ghost btn-sm" onclick="stopViz()"><i class="fas fa-stop"></i></button>
+                                <button class="btn btn-ghost btn-sm" onclick="generateArray(parseInt(document.getElementById('viz-size-slider')?.value||30))"><i class="fas fa-random"></i> New Array</button>
+                                <div class="viz-slider-wrap"><span>Speed:</span><input type="range" min="1" max="100" value="50" oninput="setVizSpeed(this.value)"><span id="viz-speed-label">Medium</span></div>
+                                <div class="viz-slider-wrap"><span>Size:</span><input type="range" id="viz-size-slider" min="10" max="80" value="30" oninput="setArraySize(this.value)"><span id="viz-size-label">30</span></div>
+                            </div>
+                            <div class="viz-stats">
+                                <div class="viz-stat">Comparisons: <strong id="viz-comparisons">0</strong></div>
+                                <div class="viz-stat">Swaps: <strong id="viz-swaps">0</strong></div>
+                                <div class="viz-stat">Accesses: <strong id="viz-accesses">0</strong></div>
+                                <div class="viz-stat">Array Size: <strong id="viz-array-size">30</strong></div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                            <button class="btn btn-ghost btn-sm" onclick="generateSortedArray()">Sorted</button>
+                            <button class="btn btn-ghost btn-sm" onclick="generateReversedArray()">Reversed</button>
+                            <button class="btn btn-ghost btn-sm" onclick="generateNearlySortedArray()">Nearly Sorted</button>
+                        </div>
+                    </div>
+                    <!-- Search Visualizer -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-search"></i> Search Algorithms</h3>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                            <select class="viz-select" id="viz-search-algo"><option value="linear">Linear Search</option><option value="binary">Binary Search</option></select>
+                            <div class="input-wrapper" style="flex:1;min-width:150px;"><i class="fas fa-search"></i><input type="number" id="viz-search-target" placeholder="Target value"></div>
+                            <button class="btn btn-primary btn-sm" onclick="startSearch()"><i class="fas fa-search"></i> Search</button>
+                        </div>
+                    </div>
+                    <!-- Pathfinding -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-route"></i> Pathfinding</h3>
+                        <div class="pathfinding-controls">
+                            <select class="viz-select" id="viz-path-algo"><option value="bfs">BFS</option><option value="dfs">DFS</option><option value="dijkstra">Dijkstra</option></select>
+                            <button class="btn btn-primary btn-sm" onclick="startPathfinding()"><i class="fas fa-play"></i> Find Path</button>
+                            <button class="btn btn-outline btn-sm" onclick="generateMaze()"><i class="fas fa-maze"></i> Maze</button>
+                            <button class="btn btn-ghost btn-sm" onclick="clearPath()">Clear Path</button>
+                            <button class="btn btn-ghost btn-sm" onclick="clearGrid()">Clear All</button>
+                        </div>
+                        <div id="pathfinding-grid"></div>
+                        <div class="pathfinding-legend">
+                            <span><span class="legend-dot" style="background:#10b981;"></span> Start</span>
+                            <span><span class="legend-dot" style="background:#ef4444;"></span> End</span>
+                            <span><span class="legend-dot" style="background:#334155;"></span> Wall (click to draw)</span>
+                            <span><span class="legend-dot" style="background:rgba(99,102,241,0.25);"></span> Visited</span>
+                            <span><span class="legend-dot" style="background:#fbbf24;"></span> Path</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Typing Test Tab ===== -->
+                <div class="tab-content" id="tab-typing">
+                    <div class="roadmap-header"><h2><i class="fas fa-keyboard"></i> Coding Typing Speed Test</h2></div>
+                    <div id="typing-menu">
+                        <div class="typing-test-grid">
+                            <div class="typing-test-card" onclick="startTypingTest('cpp')">
+                                <span class="typing-test-icon">⌨️</span><h4>C++ Code</h4><p>Practice typing C++ algorithms</p>
+                            </div>
+                            <div class="typing-test-card" onclick="startTypingTest('python')">
+                                <span class="typing-test-icon">🐍</span><h4>Python Code</h4><p>Practice typing Python algorithms</p>
+                            </div>
+                        </div>
+                        <div id="typing-stats"></div>
+                        <div class="card"><h3 class="card-title"><i class="fas fa-history"></i> History</h3><div id="typing-history"></div></div>
+                    </div>
+                    <div id="typing-active" style="display:none;">
+                        <div class="typing-header-bar">
+                            <div><strong id="typing-title">Snippet</strong> <span class="dsa-badge total" id="typing-lang">PY</span></div>
+                            <div class="typing-live-stats">
+                                <div class="typing-live-stat">WPM: <strong id="typing-wpm">0</strong></div>
+                                <div class="typing-live-stat">Accuracy: <strong id="typing-accuracy">100%</strong></div>
+                                <div class="typing-live-stat">Time: <strong id="typing-time">0:00</strong></div>
+                                <div class="typing-live-stat">Errors: <strong id="typing-errors">0</strong></div>
+                            </div>
+                            <button class="btn btn-ghost btn-sm" onclick="skipTypingTest()"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div id="typing-target"></div>
+                        <textarea id="typing-input" placeholder="Start typing the code above..." oninput="handleTypingInput(event)" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"></textarea>
+                    </div>
+                    <div id="typing-results" style="display:none;">
+                        <div class="card" style="max-width:500px;margin:0 auto;text-align:center;" id="typing-result-content"></div>
+                    </div>
+                </div>
+
+                <!-- ===== Kanban Tab ===== -->
+                <div class="tab-content" id="tab-kanban">
+                    <div class="roadmap-header"><h2><i class="fas fa-columns"></i> Kanban Board</h2></div>
+                    <div id="kanban-stats" class="kanban-stats"></div>
+                    <div id="kanban-board"></div>
+                    <div class="modal-overlay" id="kanban-modal">
+                        <div class="modal-card">
+                            <div class="modal-header"><h3 id="kanban-modal-title">New Card</h3><button class="btn btn-ghost" onclick="document.getElementById('kanban-modal').classList.remove('active')"><i class="fas fa-times"></i></button></div>
+                            <input type="hidden" id="kanban-editing-id">
+                            <input type="hidden" id="kanban-card-column" value="todo">
+                            <div class="form-group"><label>Title</label><div class="input-wrapper"><i class="fas fa-heading"></i><input type="text" id="kanban-card-title-input" placeholder="Task title"></div></div>
+                            <div class="form-group"><label>Description</label><textarea id="kanban-card-desc-input" rows="3" placeholder="Optional description..."></textarea></div>
+                            <div class="form-group"><label>Label</label><div class="input-wrapper"><i class="fas fa-tag"></i><select id="kanban-card-label"><option value="dsa">DSA</option><option value="cpp">C++</option><option value="python">Python</option><option value="fitness">Fitness</option><option value="personal">Personal</option><option value="urgent">Urgent</option><option value="learning">Learning</option></select></div></div>
+                            <div class="form-group"><label>Priority</label><div class="input-wrapper"><i class="fas fa-flag"></i><select id="kanban-card-priority"><option value="low">🟢 Low</option><option value="medium" selected>🟡 Medium</option><option value="high">🔴 High</option></select></div></div>
+                            <div class="modal-actions"><button class="btn btn-ghost" onclick="document.getElementById('kanban-modal').classList.remove('active')">Cancel</button><button class="btn btn-primary" onclick="saveKanbanCard()"><i class="fas fa-save"></i> Save</button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===== Resume Tab ===== -->
+                <div class="tab-content" id="tab-resume">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-file-alt"></i> Resume Builder</h2>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn btn-primary btn-sm" onclick="exportResumeText()"><i class="fas fa-download"></i> Export</button>
+                            <button class="btn btn-outline btn-sm" onclick="printResume()"><i class="fas fa-print"></i> Print</button>
+                        </div>
+                    </div>
+                    <div class="resume-builder-layout">
+                        <div id="resume-form"></div>
+                        <div class="resume-preview-wrap"><div id="resume-preview"></div></div>
+                    </div>
+                </div>
+
+                <!-- ===== Community Feed Tab ===== -->
+                <div class="tab-content" id="tab-feed">
+                    <div class="roadmap-header"><h2><i class="fas fa-rss"></i> Community Feed</h2></div>
+                    <div class="feed-compose">
+                        <textarea id="feed-post-input" placeholder="Share your progress, ask a question, or motivate others..."></textarea>
+                        <button class="btn btn-primary" onclick="createFeedPost()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                    <div id="social-feed"></div>
+                </div>
             </div>
         </main>
     </div>
@@ -1675,5 +1837,9 @@
     <script src="js/competitive-timer.js"></script>
     <script src="js/cheatsheets.js"></script>
     <script src="js/enhanced-daily.js"></script>
+    <script src="js/algo-visualizer.js"></script>
+    <script src="js/typing-test.js"></script>
+    <script src="js/kanban.js"></script>
+    <script src="js/resume-social.js"></script>
 </body>
 </html>

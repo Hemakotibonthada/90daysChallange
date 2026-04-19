@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/mega-features.css">
     <link rel="stylesheet" href="css/resume-social.css">
     <link rel="stylesheet" href="css/gui-overhaul.css">
+    <link rel="stylesheet" href="css/enhanced-overview.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -502,10 +503,12 @@
             <div class="dashboard-content">
                 <!-- ===== Overview Tab ===== -->
                 <div class="tab-content active" id="tab-overview">
+                    <!-- Welcome + Progress Ring -->
                     <div class="welcome-banner">
                         <div class="welcome-text">
-                            <h1>Welcome back, <span id="user-name-display">Hema</span>!</h1>
+                            <h1>Welcome back, <span id="user-name-display">Hema</span>! <span id="ov-greeting-emoji">👋</span></h1>
                             <p id="day-display">Day 1 of 90 — Let's crush it!</p>
+                            <p id="ov-time-greeting" style="font-size:0.8rem;color:var(--text-muted);margin-top:4px;"></p>
                         </div>
                         <div class="progress-ring-container">
                             <svg class="progress-ring" viewBox="0 0 120 120">
@@ -519,70 +522,38 @@
                         </div>
                     </div>
 
-                    <!-- Motivational Quote -->
-                    <div class="quote-banner" id="quote-banner">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <p id="quote-text">Loading inspiration...</p>
-                        <span id="quote-author">—</span>
+                    <!-- Countdown + Motivational Quote -->
+                    <div class="ov-row-2">
+                        <div class="ov-countdown-card card">
+                            <div class="ov-countdown-inner">
+                                <div class="ov-countdown-item"><span class="ov-cd-num" id="ov-days-left">0</span><span class="ov-cd-lbl">Days Left</span></div>
+                                <div class="ov-countdown-sep">:</div>
+                                <div class="ov-countdown-item"><span class="ov-cd-num" id="ov-weeks-left">0</span><span class="ov-cd-lbl">Weeks</span></div>
+                                <div class="ov-countdown-sep">:</div>
+                                <div class="ov-countdown-item"><span class="ov-cd-num" id="ov-pct-done">0%</span><span class="ov-cd-lbl">Done</span></div>
+                            </div>
+                            <div class="ov-countdown-bar"><div class="ov-countdown-fill" id="ov-countdown-fill"></div></div>
+                        </div>
+                        <div class="quote-banner" id="quote-banner">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p id="quote-text">Loading inspiration...</p>
+                            <span id="quote-author">—</span>
+                        </div>
                     </div>
 
+                    <!-- Stats Grid (8 cards) -->
                     <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-days">0</span>
-                                <span class="stat-card-label">Days Done</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #06b6d4, #22d3ee)">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-problems">0</span>
-                                <span class="stat-card-label">Problems Solved</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24)">
-                                <i class="fas fa-fire-alt"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-streak">0</span>
-                                <span class="stat-card-label">Current Streak</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #10b981, #34d399)">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-workouts">0</span>
-                                <span class="stat-card-label">Workouts Done</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #3b82f6, #60a5fa)">
-                                <i class="fas fa-tint"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-water">0</span>
-                                <span class="stat-card-label">Glasses Today</span>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-icon" style="background: linear-gradient(135deg, #a855f7, #c084fc)">
-                                <i class="fas fa-bed"></i>
-                            </div>
-                            <div class="stat-card-info">
-                                <span class="stat-card-value" id="stat-sleep">—</span>
-                                <span class="stat-card-label">Sleep (hrs)</span>
-                            </div>
-                        </div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)"><i class="fas fa-calendar-check"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-days">0</span><span class="stat-card-label">Days Done</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)"><i class="fas fa-code"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-problems">0</span><span class="stat-card-label">Problems Solved</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fas fa-fire-alt"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-streak">0</span><span class="stat-card-label">Current Streak</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#10b981,#34d399)"><i class="fas fa-dumbbell"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-workouts">0</span><span class="stat-card-label">Workouts</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa)"><i class="fas fa-tint"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-water">0</span><span class="stat-card-label">Water Today</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#a855f7,#c084fc)"><i class="fas fa-bed"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-sleep">—</span><span class="stat-card-label">Sleep (hrs)</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#ec4899,#f472b6)"><i class="fas fa-star"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-xp">0</span><span class="stat-card-label">Total XP</span></div></div>
+                        <div class="stat-card"><div class="stat-card-icon" style="background:linear-gradient(135deg,#14b8a6,#2dd4bf)"><i class="fas fa-clock"></i></div><div class="stat-card-info"><span class="stat-card-value" id="stat-focus">0m</span><span class="stat-card-label">Focus Time</span></div></div>
                     </div>
 
+                    <!-- Today's Tasks + Phase Progress -->
                     <div class="overview-grid">
                         <div class="card">
                             <h3 class="card-title"><i class="fas fa-tasks"></i> Today's Quick Tasks</h3>
@@ -591,34 +562,34 @@
                         <div class="card">
                             <h3 class="card-title"><i class="fas fa-trophy"></i> Phase Progress</h3>
                             <div class="phase-progress">
-                                <div class="phase-item">
-                                    <div class="phase-info">
-                                        <span>Phase 1: Foundations</span>
-                                        <span id="phase1-percent">0%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar-fill" id="phase1-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                <div class="phase-item">
-                                    <div class="phase-info">
-                                        <span>Phase 2: Intermediate</span>
-                                        <span id="phase2-percent">0%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar-fill phase2" id="phase2-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
-                                <div class="phase-item">
-                                    <div class="phase-info">
-                                        <span>Phase 3: Advanced</span>
-                                        <span id="phase3-percent">0%</span>
-                                    </div>
-                                    <div class="progress-bar">
-                                        <div class="progress-bar-fill phase3" id="phase3-bar" style="width: 0%"></div>
-                                    </div>
-                                </div>
+                                <div class="phase-item"><div class="phase-info"><span>Phase 1: Foundations</span><span id="phase1-percent">0%</span></div><div class="progress-bar"><div class="progress-bar-fill" id="phase1-bar" style="width:0%"></div></div></div>
+                                <div class="phase-item"><div class="phase-info"><span>Phase 2: Intermediate</span><span id="phase2-percent">0%</span></div><div class="progress-bar"><div class="progress-bar-fill phase2" id="phase2-bar" style="width:0%"></div></div></div>
+                                <div class="phase-item"><div class="phase-info"><span>Phase 3: Advanced</span><span id="phase3-percent">0%</span></div><div class="progress-bar"><div class="progress-bar-fill phase3" id="phase3-bar" style="width:0%"></div></div></div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Radar + Category Breakdown -->
+                    <div class="overview-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-chart-radar"></i> Skill Radar</h3>
+                            <div id="ov-skill-radar"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-th"></i> Category Tasks</h3>
+                            <div id="ov-category-breakdown"></div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity Feed + Upcoming Tasks -->
+                    <div class="overview-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-history"></i> Recent Activity</h3>
+                            <div id="ov-recent-activity"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-arrow-right"></i> What's Next</h3>
+                            <div id="ov-whats-next"></div>
                         </div>
                     </div>
 
@@ -626,6 +597,24 @@
                     <div class="card">
                         <h3 class="card-title"><i class="fas fa-calendar-alt"></i> Activity Heatmap</h3>
                         <div class="heatmap" id="heatmap"></div>
+                    </div>
+
+                    <!-- Weekly Comparison + Streaks Chart -->
+                    <div class="overview-grid">
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-chart-bar"></i> Weekly Tasks</h3>
+                            <div class="chart-container" id="ov-weekly-chart"></div>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title"><i class="fas fa-fire"></i> Streak History</h3>
+                            <div id="ov-streak-chart"></div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Grid -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-bolt"></i> Quick Actions</h3>
+                        <div class="ov-quick-actions" id="ov-quick-actions"></div>
                     </div>
                 </div>
 
@@ -1876,5 +1865,6 @@
     <script src="js/kanban.js"></script>
     <script src="js/resume-social.js"></script>
     <script src="js/gui-enhance.js"></script>
+    <script src="js/enhanced-overview.js"></script>
 </body>
 </html>

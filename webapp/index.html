@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="css/enhanced-daily.css">
     <link rel="stylesheet" href="css/mega-features.css">
     <link rel="stylesheet" href="css/resume-social.css">
+    <link rel="stylesheet" href="css/gui-overhaul.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -344,99 +345,96 @@
                 <span>90 Days</span>
             </div>
             <nav class="sidebar-nav">
+                <!-- Main -->
                 <a class="sidebar-link active" data-tab="overview" onclick="switchTab('overview')">
                     <i class="fas fa-th-large"></i><span>Overview</span>
                 </a>
                 <a class="sidebar-link" data-tab="daily" onclick="switchTab('daily')">
                     <i class="fas fa-calendar-day"></i><span>Daily Tasks</span>
                 </a>
-                <a class="sidebar-link" data-tab="cpp" onclick="switchTab('cpp')">
-                    <i class="fas fa-code"></i><span>C++ Roadmap</span>
-                </a>
-                <a class="sidebar-link" data-tab="python" onclick="switchTab('python')">
-                    <i class="fab fa-python"></i><span>Python Roadmap</span>
-                </a>
-                <a class="sidebar-link" data-tab="dsa" onclick="switchTab('dsa')">
-                    <i class="fas fa-sitemap"></i><span>DSA Problems</span>
-                </a>
-                <a class="sidebar-link" data-tab="fitness" onclick="switchTab('fitness')">
-                    <i class="fas fa-dumbbell"></i><span>Fitness</span>
-                </a>
-                <a class="sidebar-link" data-tab="diet" onclick="switchTab('diet')">
-                    <i class="fas fa-utensils"></i><span>Diet Plan</span>
-                </a>
-                <a class="sidebar-link" data-tab="pomodoro" onclick="switchTab('pomodoro')">
-                    <i class="fas fa-clock"></i><span>Pomodoro</span>
-                </a>
-                <a class="sidebar-link" data-tab="notes" onclick="switchTab('notes')">
-                    <i class="fas fa-sticky-note"></i><span>Notes</span>
-                </a>
-                <a class="sidebar-link" data-tab="analytics" onclick="switchTab('analytics')">
-                    <i class="fas fa-chart-pie"></i><span>Analytics</span>
-                </a>
-                <a class="sidebar-link" data-tab="editor" onclick="switchTab('editor')">
-                    <i class="fas fa-terminal"></i><span>Code Editor</span>
-                </a>
-                <a class="sidebar-link" data-tab="flashcards" onclick="switchTab('flashcards')">
-                    <i class="fas fa-layer-group"></i><span>Flashcards</span>
-                </a>
-                <a class="sidebar-link" data-tab="quiz" onclick="switchTab('quiz')">
-                    <i class="fas fa-question-circle"></i><span>Quizzes</span>
-                </a>
                 <a class="sidebar-link" data-tab="calendar" onclick="switchTab('calendar')">
                     <i class="fas fa-calendar"></i><span>Calendar</span>
                 </a>
-                <a class="sidebar-link" data-tab="resources" onclick="switchTab('resources')">
-                    <i class="fas fa-book-open"></i><span>Resources</span>
-                </a>
-                <a class="sidebar-link" data-tab="habits" onclick="switchTab('habits')">
-                    <i class="fas fa-check-double"></i><span>Habits</span>
-                </a>
-                <a class="sidebar-link" data-tab="whiteboard" onclick="switchTab('whiteboard')">
-                    <i class="fas fa-paint-brush"></i><span>Whiteboard</span>
-                </a>
-                <a class="sidebar-link" data-tab="share" onclick="switchTab('share')">
-                    <i class="fas fa-share-alt"></i><span>Share Story</span>
-                </a>
-                <a class="sidebar-link" data-tab="gamification" onclick="switchTab('gamification')">
-                    <i class="fas fa-gamepad"></i><span>Gamification</span>
-                </a>
-                <a class="sidebar-link" data-tab="interview" onclick="switchTab('interview')">
-                    <i class="fas fa-user-tie"></i><span>Interview Prep</span>
-                </a>
-                <a class="sidebar-link" data-tab="meditation" onclick="switchTab('meditation')">
-                    <i class="fas fa-spa"></i><span>Focus & Zen</span>
-                </a>
-                <a class="sidebar-link" data-tab="planner" onclick="switchTab('planner')">
-                    <i class="fas fa-tasks"></i><span>Study Planner</span>
-                </a>
-                <a class="sidebar-link" data-tab="reports" onclick="switchTab('reports')">
-                    <i class="fas fa-file-alt"></i><span>Reports</span>
-                </a>
-                <a class="sidebar-link" data-tab="exercises" onclick="switchTab('exercises')">
-                    <i class="fas fa-running"></i><span>Exercise Library</span>
-                </a>
-                <a class="sidebar-link" data-tab="contests" onclick="switchTab('contests')">
-                    <i class="fas fa-trophy"></i><span>Contests</span>
-                </a>
-                <a class="sidebar-link" data-tab="cheatsheets" onclick="switchTab('cheatsheets')">
-                    <i class="fas fa-scroll"></i><span>Cheatsheets</span>
-                </a>
-                <a class="sidebar-link" data-tab="visualizer" onclick="switchTab('visualizer')">
-                    <i class="fas fa-project-diagram"></i><span>Visualizer</span>
-                </a>
-                <a class="sidebar-link" data-tab="typing" onclick="switchTab('typing')">
-                    <i class="fas fa-keyboard"></i><span>Typing Test</span>
-                </a>
-                <a class="sidebar-link" data-tab="kanban" onclick="switchTab('kanban')">
-                    <i class="fas fa-columns"></i><span>Kanban</span>
-                </a>
-                <a class="sidebar-link" data-tab="resume" onclick="switchTab('resume')">
-                    <i class="fas fa-file-alt"></i><span>Resume</span>
-                </a>
-                <a class="sidebar-link" data-tab="feed" onclick="switchTab('feed')">
-                    <i class="fas fa-rss"></i><span>Community</span>
-                </a>
+
+                <!-- Learning -->
+                <div class="sidebar-group" id="sg-learning">
+                    <div class="sidebar-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <span>Learning</span>
+                        <i class="fas fa-chevron-down group-chevron"></i>
+                    </div>
+                    <div class="sidebar-group-items">
+                        <a class="sidebar-link" data-tab="cpp" onclick="switchTab('cpp')"><i class="fas fa-code"></i><span>C++ Roadmap</span></a>
+                        <a class="sidebar-link" data-tab="python" onclick="switchTab('python')"><i class="fab fa-python"></i><span>Python</span></a>
+                        <a class="sidebar-link" data-tab="dsa" onclick="switchTab('dsa')"><i class="fas fa-sitemap"></i><span>DSA Problems</span></a>
+                        <a class="sidebar-link" data-tab="flashcards" onclick="switchTab('flashcards')"><i class="fas fa-layer-group"></i><span>Flashcards</span></a>
+                        <a class="sidebar-link" data-tab="quiz" onclick="switchTab('quiz')"><i class="fas fa-question-circle"></i><span>Quizzes</span></a>
+                        <a class="sidebar-link" data-tab="cheatsheets" onclick="switchTab('cheatsheets')"><i class="fas fa-scroll"></i><span>Cheatsheets</span></a>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="sidebar-group" id="sg-tools">
+                    <div class="sidebar-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <span>Tools</span>
+                        <i class="fas fa-chevron-down group-chevron"></i>
+                    </div>
+                    <div class="sidebar-group-items">
+                        <a class="sidebar-link" data-tab="editor" onclick="switchTab('editor')"><i class="fas fa-terminal"></i><span>Code Editor</span></a>
+                        <a class="sidebar-link" data-tab="pomodoro" onclick="switchTab('pomodoro')"><i class="fas fa-clock"></i><span>Pomodoro</span></a>
+                        <a class="sidebar-link" data-tab="notes" onclick="switchTab('notes')"><i class="fas fa-sticky-note"></i><span>Notes</span></a>
+                        <a class="sidebar-link" data-tab="whiteboard" onclick="switchTab('whiteboard')"><i class="fas fa-paint-brush"></i><span>Whiteboard</span></a>
+                        <a class="sidebar-link" data-tab="kanban" onclick="switchTab('kanban')"><i class="fas fa-columns"></i><span>Kanban</span></a>
+                        <a class="sidebar-link" data-tab="planner" onclick="switchTab('planner')"><i class="fas fa-tasks"></i><span>Study Planner</span></a>
+                    </div>
+                </div>
+
+                <!-- Fitness -->
+                <div class="sidebar-group" id="sg-fitness">
+                    <div class="sidebar-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <span>Health</span>
+                        <i class="fas fa-chevron-down group-chevron"></i>
+                    </div>
+                    <div class="sidebar-group-items">
+                        <a class="sidebar-link" data-tab="fitness" onclick="switchTab('fitness')"><i class="fas fa-dumbbell"></i><span>Fitness</span></a>
+                        <a class="sidebar-link" data-tab="diet" onclick="switchTab('diet')"><i class="fas fa-utensils"></i><span>Diet Plan</span></a>
+                        <a class="sidebar-link" data-tab="exercises" onclick="switchTab('exercises')"><i class="fas fa-running"></i><span>Exercises</span></a>
+                        <a class="sidebar-link" data-tab="meditation" onclick="switchTab('meditation')"><i class="fas fa-spa"></i><span>Focus & Zen</span></a>
+                    </div>
+                </div>
+
+                <!-- Practice -->
+                <div class="sidebar-group" id="sg-practice">
+                    <div class="sidebar-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <span>Practice</span>
+                        <i class="fas fa-chevron-down group-chevron"></i>
+                    </div>
+                    <div class="sidebar-group-items">
+                        <a class="sidebar-link" data-tab="contests" onclick="switchTab('contests')"><i class="fas fa-trophy"></i><span>Contests</span></a>
+                        <a class="sidebar-link" data-tab="visualizer" onclick="switchTab('visualizer')"><i class="fas fa-project-diagram"></i><span>Visualizer</span></a>
+                        <a class="sidebar-link" data-tab="typing" onclick="switchTab('typing')"><i class="fas fa-keyboard"></i><span>Typing Test</span></a>
+                        <a class="sidebar-link" data-tab="interview" onclick="switchTab('interview')"><i class="fas fa-user-tie"></i><span>Interview Prep</span></a>
+                    </div>
+                </div>
+
+                <!-- More -->
+                <div class="sidebar-group collapsed" id="sg-more">
+                    <div class="sidebar-group-title" onclick="this.parentElement.classList.toggle('collapsed')">
+                        <span>More</span>
+                        <i class="fas fa-chevron-down group-chevron"></i>
+                    </div>
+                    <div class="sidebar-group-items">
+                        <a class="sidebar-link" data-tab="analytics" onclick="switchTab('analytics')"><i class="fas fa-chart-pie"></i><span>Analytics</span></a>
+                        <a class="sidebar-link" data-tab="reports" onclick="switchTab('reports')"><i class="fas fa-file-alt"></i><span>Reports</span></a>
+                        <a class="sidebar-link" data-tab="gamification" onclick="switchTab('gamification')"><i class="fas fa-gamepad"></i><span>Gamification</span></a>
+                        <a class="sidebar-link" data-tab="habits" onclick="switchTab('habits')"><i class="fas fa-check-double"></i><span>Habits</span></a>
+                        <a class="sidebar-link" data-tab="resources" onclick="switchTab('resources')"><i class="fas fa-book-open"></i><span>Resources</span></a>
+                        <a class="sidebar-link" data-tab="share" onclick="switchTab('share')"><i class="fas fa-share-alt"></i><span>Share Story</span></a>
+                        <a class="sidebar-link" data-tab="resume" onclick="switchTab('resume')"><i class="fas fa-id-card"></i><span>Resume</span></a>
+                        <a class="sidebar-link" data-tab="feed" onclick="switchTab('feed')"><i class="fas fa-rss"></i><span>Community</span></a>
+                    </div>
+                </div>
+
+                <!-- Profile -->
                 <a class="sidebar-link" data-tab="profile" onclick="switchTab('profile')">
                     <i class="fas fa-user-circle"></i><span>Profile</span>
                 </a>
@@ -450,6 +448,8 @@
 
         <!-- Dashboard Main -->
         <main class="dashboard-main">
+            <!-- Particle Background -->
+            <div class="dashboard-particles" id="dashboard-particles"></div>
             <!-- Top Bar -->
             <header class="topbar">
                 <button class="sidebar-toggle" onclick="toggleSidebar()">
@@ -1841,5 +1841,6 @@
     <script src="js/typing-test.js"></script>
     <script src="js/kanban.js"></script>
     <script src="js/resume-social.js"></script>
+    <script src="js/gui-enhance.js"></script>
 </body>
 </html>

@@ -49,8 +49,12 @@ async function handleRegister(e) {
     }
 
     const hashedPassword = await hashPassword(password);
-    const startDate = new Date().toISOString().split('T')[0];
-    const endDate = new Date(Date.now() + 89 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const durationSelect = document.getElementById('reg-duration').value;
+    const customDays = parseInt(document.getElementById('reg-custom-days')?.value) || 90;
+    const challengeDays = durationSelect === 'custom' ? customDays : parseInt(durationSelect);
+    const startDateInput = document.getElementById('reg-start-date').value;
+    const startDate = startDateInput || new Date().toISOString().split('T')[0];
+    const endDate = new Date(new Date(startDate).getTime() + (challengeDays - 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
 
     const user = {
@@ -65,6 +69,7 @@ async function handleRegister(e) {
         bmi,
         startDate,
         endDate,
+        challengeDays,
         createdAt: new Date().toISOString()
     };
 
@@ -123,6 +128,29 @@ function handleLogout() {
     showToast('Logged out successfully', 'info');
     showPage('landing-page');
 }
+
+// Get challenge total days for current user
+function getChallengeTotalDays() {
+    const user = getCurrentUser();
+    return user?.challengeDays || 90;
+}
+
+// Toggle custom days input
+function toggleCustomDays() {
+    const sel = document.getElementById('reg-duration');
+    const group = document.getElementById('custom-days-group');
+    if (sel && group) {
+        group.style.display = sel.value === 'custom' ? '' : 'none';
+    }
+}
+
+// Set default start date to today on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.getElementById('reg-start-date');
+    if (dateInput && !dateInput.value) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+    }
+});
 
 // Get Current User
 function getCurrentUser() {

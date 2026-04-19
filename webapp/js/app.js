@@ -90,7 +90,8 @@ function initDashboard() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     startDate.setHours(0, 0, 0, 0);
-    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
+    const totalDays = user.challengeDays || 90;
+    const currentDay = Math.min(totalDays, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
     currentViewDay = currentDay;
 
     // Update streak
@@ -135,11 +136,13 @@ function renderOverview(user, data, currentDay) {
     document.getElementById('user-avatar').textContent = firstName.charAt(0).toUpperCase();
 
     // Day display
-    const phase = currentDay <= 30 ? 'Phase 1: Foundations' : currentDay <= 60 ? 'Phase 2: Intermediate' : 'Phase 3: Advanced';
-    document.getElementById('day-display').textContent = `Day ${currentDay} of 90 — ${phase}`;
+    const totalDays = user.challengeDays || 90;
+    const phaseDivide = Math.floor(totalDays / 3);
+    const phase = currentDay <= phaseDivide ? 'Phase 1: Foundations' : currentDay <= phaseDivide * 2 ? 'Phase 2: Intermediate' : 'Phase 3: Advanced';
+    document.getElementById('day-display').textContent = `Day ${currentDay} of ${totalDays} — ${phase}`;
 
     // Progress ring
-    const percent = Math.round((currentDay / 90) * 100);
+    const percent = Math.round((currentDay / totalDays) * 100);
     document.getElementById('progress-percent').textContent = `${percent}%`;
     const ring = document.getElementById('main-progress-ring');
     if (ring) {
@@ -165,10 +168,13 @@ function renderOverview(user, data, currentDay) {
     document.getElementById('stat-workouts').textContent = workoutsDone;
     document.getElementById('streak-count').textContent = data.streak || 0;
 
-    // Phase progress
-    const phase1Tasks = countPhaseTasks(data, 1, 30);
-    const phase2Tasks = countPhaseTasks(data, 31, 60);
-    const phase3Tasks = countPhaseTasks(data, 61, 90);
+    // Phase progress (dynamic based on challenge duration)
+    const td = totalDays;
+    const p1End = Math.floor(td / 3);
+    const p2End = Math.floor(td * 2 / 3);
+    const phase1Tasks = countPhaseTasks(data, 1, p1End);
+    const phase2Tasks = countPhaseTasks(data, p1End + 1, p2End);
+    const phase3Tasks = countPhaseTasks(data, p2End + 1, td);
 
     updatePhaseBar('phase1', phase1Tasks);
     updatePhaseBar('phase2', phase2Tasks);
@@ -234,7 +240,7 @@ function toggleQuickTask(day, key, checked) {
     const user = getCurrentUser();
     const startDate = new Date(user.startDate);
     const today = new Date();
-    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
+    const currentDay = Math.min(user.challengeDays || 90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
     renderOverview(user, data, currentDay);
     renderHeatmap(data);
 }
@@ -318,13 +324,13 @@ function toggleDailyTask(day, key, checked) {
     const user = getCurrentUser();
     const startDate = new Date(user.startDate);
     const today = new Date();
-    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
+    const currentDay = Math.min(user.challengeDays || 90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
     renderOverview(user, data, currentDay);
     renderHeatmap(data);
 }
 
 function changeDay(delta) {
-    currentViewDay = Math.max(1, Math.min(90, currentViewDay + delta));
+    currentViewDay = Math.max(1, Math.min(getChallengeTotalDays(), currentViewDay + delta));
     renderDailyTasks(currentViewDay);
 }
 
@@ -462,7 +468,7 @@ function toggleDSAProblem(topic, index, checked) {
     const user = getCurrentUser();
     const startDate = new Date(user.startDate);
     const today = new Date();
-    const currentDay = Math.min(90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
+    const currentDay = Math.min(user.challengeDays || 90, Math.max(1, Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1));
     renderOverview(user, data, currentDay);
 }
 
@@ -642,6 +648,10 @@ function renderProfile(user, data, currentDay) {
     document.getElementById('profile-weight').textContent = `${user.weight} kg`;
     document.getElementById('profile-height').textContent = `${user.height} cm`;
     document.getElementById('profile-diet').textContent = user.diet.charAt(0).toUpperCase() + user.diet.slice(1);
+
+    // Challenge duration
+    const durationEl = document.getElementById('profile-duration');
+    if (durationEl) durationEl.textContent = `${user.challengeDays || 90} Days`;
 }
 
 // ===== Render Heatmap =====
@@ -655,7 +665,8 @@ function renderHeatmap(data) {
     today.setHours(0, 0, 0, 0);
 
     container.innerHTML = '';
-    for (let d = 0; d < 90; d++) {
+    const totalDaysHM = user.challengeDays || 90;
+    for (let d = 0; d < totalDaysHM; d++) {
         const cellDate = new Date(startDate.getTime() + d * 86400000);
         const day = d + 1;
         const dayData = data.dailyTasks?.[day] || {};

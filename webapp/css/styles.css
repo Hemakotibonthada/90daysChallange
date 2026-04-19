@@ -2147,6 +2147,107 @@ body.light-theme .level-up-card,
 body.light-theme .ed-complete-card,
 body.light-theme .kbd-help-card { background: #ffffff; }
 
+body.light-theme .ed-challenge {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.04), rgba(239, 68, 68, 0.03));
+    border-color: rgba(245, 158, 11, 0.15);
+}
+
+body.light-theme .ed-challenge-tests code {
+    background: rgba(30, 30, 46, 0.9);
+    color: #a5b4fc;
+}
+
+body.light-theme .ed-today-banner {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(6, 182, 212, 0.05));
+    border-color: rgba(99, 102, 241, 0.12);
+}
+
+body.light-theme .ed-streak-cell {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light-theme .ed-streak-cell.level-1 { background: rgba(99, 102, 241, 0.1); }
+body.light-theme .ed-streak-cell.level-2 { background: rgba(99, 102, 241, 0.2); }
+body.light-theme .ed-streak-cell.level-3 { background: rgba(99, 102, 241, 0.35); }
+body.light-theme .ed-streak-cell.level-4 { background: rgba(99, 102, 241, 0.5); }
+
+body.light-theme .ed-streak-cell.today {
+    border-color: var(--accent-1);
+    background: rgba(99, 102, 241, 0.06);
+}
+
+body.light-theme .ed-task-note textarea {
+    background: rgba(0, 0, 0, 0.02) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-theme .pomo-ring-fill { stroke: #6366f1; }
+body.light-theme .pomo-time { color: #1a1a2e; }
+
+body.light-theme .water-glass {
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .share-preview-container {
+    background: repeating-conic-gradient(rgba(0, 0, 0, 0.03) 0% 25%, transparent 0% 50%) 50% / 20px 20px;
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .pattern-template,
+body.light-theme .solution-code {
+    background: rgba(30, 30, 46, 0.92);
+    color: #c3e88d;
+}
+
+body.light-theme .cheatsheet-cmd {
+    background: rgba(6, 182, 212, 0.06);
+}
+
+body.light-theme .template-preview {
+    background: rgba(30, 30, 46, 0.92);
+}
+
+body.light-theme .line-numbers {
+    background: rgba(0, 0, 0, 0.04);
+    color: #94a3b8;
+    border-right-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .fc-stat {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-theme .flashcard-front {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(6, 182, 212, 0.04));
+    border-color: rgba(99, 102, 241, 0.12);
+}
+
+body.light-theme .flashcard-back {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(6, 182, 212, 0.04));
+    border-color: rgba(16, 185, 129, 0.12);
+}
+
+body.light-theme .macro-card,
+body.light-theme .body-stat-card,
+body.light-theme .pomo-stat,
+body.light-theme .med-stat-card,
+body.light-theme .study-stat-card,
+body.light-theme .typing-stat-card,
+body.light-theme .report-stat,
+body.light-theme .report-week-stat,
+body.light-theme .interview-result-stat,
+body.light-theme .contest-result-stat,
+body.light-theme .typing-result-stat {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .sidebar-overlay {
+    background: rgba(0, 0, 0, 0.3);
+}
+
 /* ===== Motivational Quote Banner ===== */
 .quote-banner {
     background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.08));

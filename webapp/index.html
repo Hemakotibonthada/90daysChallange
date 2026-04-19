@@ -325,8 +325,38 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-row" style="grid-template-columns: 1fr 1fr;">
+                        <div class="form-group">
+                            <label for="reg-duration">Challenge Duration</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-flag"></i>
+                                <select id="reg-duration" required onchange="toggleCustomDays()">
+                                    <option value="90" selected>90 Days</option>
+                                    <option value="60">60 Days</option>
+                                    <option value="120">120 Days</option>
+                                    <option value="180">180 Days</option>
+                                    <option value="365">365 Days</option>
+                                    <option value="custom">Custom</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-start-date">Start Date</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="date" id="reg-start-date" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="custom-days-group" style="display:none;">
+                        <label for="reg-custom-days">Custom Days</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="number" id="reg-custom-days" placeholder="e.g. 45" min="7" max="999">
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary w-full btn-lg">
-                        <i class="fas fa-rocket"></i> Start My 90 Days
+                        <i class="fas fa-rocket"></i> Start My Challenge
                     </button>
                 </form>
                 <p class="auth-footer">
@@ -741,6 +771,10 @@
                             <div class="profile-detail-row">
                                 <span><i class="fas fa-flag-checkered"></i> End Date</span>
                                 <span id="profile-end">—</span>
+                            </div>
+                            <div class="profile-detail-row">
+                                <span><i class="fas fa-hourglass-half"></i> Duration</span>
+                                <span id="profile-duration">90 Days</span>
                             </div>
                             <div class="profile-detail-row">
                                 <span><i class="fas fa-weight-hanging"></i> Weight</span>

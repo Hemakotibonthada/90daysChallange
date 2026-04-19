@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="css/resume-social.css">
     <link rel="stylesheet" href="css/gui-overhaul.css">
     <link rel="stylesheet" href="css/enhanced-overview.css">
+    <link rel="stylesheet" href="css/courses.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -400,6 +401,7 @@
                         <a class="sidebar-link" data-tab="flashcards" onclick="switchTab('flashcards')"><i class="fas fa-layer-group"></i><span>Flashcards</span></a>
                         <a class="sidebar-link" data-tab="quiz" onclick="switchTab('quiz')"><i class="fas fa-question-circle"></i><span>Quizzes</span></a>
                         <a class="sidebar-link" data-tab="cheatsheets" onclick="switchTab('cheatsheets')"><i class="fas fa-scroll"></i><span>Cheatsheets</span></a>
+                        <a class="sidebar-link" data-tab="courses" onclick="switchTab('courses')"><i class="fas fa-play-circle"></i><span>Courses</span></a>
                     </div>
                 </div>
 
@@ -1651,6 +1653,79 @@
                     <div id="cheatsheets-content"></div>
                 </div>
 
+                <!-- ===== Courses & Videos Tab ===== -->
+                <div class="tab-content" id="tab-courses">
+                    <div class="roadmap-header">
+                        <h2><i class="fas fa-play-circle"></i> Courses & Videos</h2>
+                        <div style="display:flex;gap:8px;">
+                            <button class="btn btn-primary btn-sm" onclick="addPlaylist()"><i class="fas fa-plus"></i> Add Playlist</button>
+                            <button class="btn btn-outline btn-sm" onclick="addSingleVideo()"><i class="fas fa-video"></i> Add Video</button>
+                        </div>
+                    </div>
+
+                    <!-- Video Player -->
+                    <div id="course-player-container" class="course-player" style="display:none;">
+                        <div class="course-player-header">
+                            <h3 id="course-player-title">Now Playing</h3>
+                            <button class="btn btn-ghost btn-sm" onclick="closePlayer()" style="color:#fff;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <iframe id="course-video-player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+
+                    <!-- Watch Stats -->
+                    <div class="course-watch-stats" id="course-watch-stats"></div>
+
+                    <!-- Today's Schedule -->
+                    <div class="card" style="margin-top:16px;">
+                        <h3 class="card-title"><i class="fas fa-calendar-day"></i> Today's Classes</h3>
+                        <div id="course-daily-schedule"></div>
+                    </div>
+
+                    <!-- Filter + Playlists -->
+                    <div class="course-toolbar" style="margin-top:16px;">
+                        <span style="font-weight:600;font-size:0.9rem;">Playlists</span>
+                        <select class="editor-select" id="course-filter" onchange="renderCoursesTab()">
+                            <option value="all">All</option>
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
+                            <option value="dsa">DSA</option>
+                        </select>
+                    </div>
+                    <div class="course-playlists-grid" id="course-playlists-grid"></div>
+
+                    <!-- Individual Videos -->
+                    <div class="card" style="margin-top:16px;">
+                        <h3 class="card-title"><i class="fas fa-film"></i> My Videos</h3>
+                        <div id="course-videos-list"></div>
+                    </div>
+
+                    <!-- Add Playlist Modal -->
+                    <div class="modal-overlay" id="course-modal">
+                        <div class="modal-card">
+                            <div class="modal-header"><h3>Add YouTube Playlist</h3><button class="btn btn-ghost" onclick="document.getElementById('course-modal').classList.remove('active')"><i class="fas fa-times"></i></button></div>
+                            <div class="form-group"><label>Playlist Name</label><div class="input-wrapper"><i class="fas fa-heading"></i><input type="text" id="course-playlist-name" placeholder="e.g., C++ Full Course by The Cherno"></div></div>
+                            <div class="form-group"><label>YouTube Playlist URL or ID</label><div class="input-wrapper"><i class="fab fa-youtube"></i><input type="text" id="course-playlist-url" placeholder="https://youtube.com/playlist?list=PLlrA..."></div></div>
+                            <div class="form-group"><label>Category</label><div class="input-wrapper"><i class="fas fa-tag"></i><select id="course-playlist-category"><option value="cpp">C++</option><option value="python">Python</option><option value="dsa">DSA</option><option value="other">Other</option></select></div></div>
+                            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:12px;">💡 Paste the full YouTube playlist URL. The videos will play in the embedded player.</p>
+                            <div class="modal-actions"><button class="btn btn-ghost" onclick="document.getElementById('course-modal').classList.remove('active')">Cancel</button><button class="btn btn-primary" onclick="savePlaylist()"><i class="fas fa-save"></i> Add Playlist</button></div>
+                        </div>
+                    </div>
+
+                    <!-- Add Video Modal -->
+                    <div class="modal-overlay" id="video-modal">
+                        <div class="modal-card">
+                            <div class="modal-header"><h3>Add Video</h3><button class="btn btn-ghost" onclick="document.getElementById('video-modal').classList.remove('active')"><i class="fas fa-times"></i></button></div>
+                            <div class="form-group"><label>Video Title</label><div class="input-wrapper"><i class="fas fa-heading"></i><input type="text" id="video-title-input" placeholder="e.g., Binary Search Explained"></div></div>
+                            <div class="form-group"><label>YouTube Video URL</label><div class="input-wrapper"><i class="fab fa-youtube"></i><input type="text" id="video-url-input" placeholder="https://youtube.com/watch?v=..."></div></div>
+                            <div class="form-row" style="grid-template-columns:1fr 1fr;">
+                                <div class="form-group"><label>Category</label><div class="input-wrapper"><i class="fas fa-tag"></i><select id="video-category-input"><option value="cpp">C++</option><option value="python">Python</option><option value="dsa">DSA</option><option value="other">Other</option></select></div></div>
+                                <div class="form-group"><label>Assign to Day (optional)</label><div class="input-wrapper"><i class="fas fa-calendar"></i><input type="number" id="video-day-input" placeholder="e.g., 5" min="1" max="999"></div></div>
+                            </div>
+                            <div class="modal-actions"><button class="btn btn-ghost" onclick="document.getElementById('video-modal').classList.remove('active')">Cancel</button><button class="btn btn-primary" onclick="saveSingleVideo()"><i class="fas fa-save"></i> Add Video</button></div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ===== Algorithm Visualizer Tab ===== -->
                 <div class="tab-content" id="tab-visualizer">
                     <div class="roadmap-header"><h2><i class="fas fa-project-diagram"></i> Algorithm Visualizer</h2></div>
@@ -1866,5 +1941,6 @@
     <script src="js/resume-social.js"></script>
     <script src="js/gui-enhance.js"></script>
     <script src="js/enhanced-overview.js"></script>
+    <script src="js/courses.js"></script>
 </body>
 </html>

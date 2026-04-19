@@ -1,0 +1,380 @@
+/* ============================================
+   COURSES & VIDEO PLAYER CSS
+   ============================================ */
+
+/* Video Player */
+.course-player {
+    background: #000;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.course-player-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.course-player-header h3 {
+    font-size: 0.95rem;
+    color: #fff;
+    flex: 1;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.course-player iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+}
+
+/* Playlist Cards Grid */
+.course-playlists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+}
+
+.course-playlist-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.course-playlist-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.cpl-thumbnail {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cpl-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.cpl-play-overlay i {
+    font-size: 2rem;
+    color: white;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.course-playlist-card:hover .cpl-play-overlay {
+    opacity: 1;
+}
+
+.cpl-info {
+    padding: 14px;
+}
+
+.cpl-category {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+.cpl-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.cpl-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.cpl-remove {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    transition: var(--transition);
+}
+
+.cpl-remove:hover { color: var(--danger); }
+
+/* Individual Videos */
+.course-video-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    flex-wrap: wrap;
+}
+
+.course-video-item:last-child { border-bottom: none; }
+
+.course-video-item.watched { opacity: 0.6; }
+
+.cv-thumb {
+    width: 160px;
+    height: 90px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    background: var(--glass);
+}
+
+.cv-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.cv-thumb:hover img {
+    transform: scale(1.05);
+}
+
+.cv-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.cv-play i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.cv-thumb:hover .cv-play { opacity: 1; }
+
+.cv-info {
+    flex: 1;
+    min-width: 150px;
+}
+
+.cv-info h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    cursor: pointer;
+    line-height: 1.3;
+}
+
+.cv-info h4:hover { color: var(--accent-1); }
+
+.cv-meta {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.cv-cat {
+    font-weight: 700;
+}
+
+.cv-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.cv-note-wrap {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+}
+
+.cv-note-wrap.open {
+    max-height: 200px;
+    padding: 8px 0;
+}
+
+.cv-note-wrap textarea {
+    width: 100%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    resize: vertical;
+    outline: none;
+    min-height: 60px;
+    margin-bottom: 6px;
+}
+
+.cv-note-wrap textarea:focus { border-color: var(--accent-1); }
+
+/* Daily Schedule */
+.cv-schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cv-schedule-day {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent-1);
+}
+
+.cv-schedule-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.cv-schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 6px;
+    background: var(--glass);
+}
+
+.cv-schedule-item:hover {
+    background: rgba(99, 102, 241, 0.06);
+}
+
+.cv-schedule-item.done {
+    opacity: 0.5;
+}
+
+.cv-schedule-num {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-1);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.cv-schedule-thumb {
+    width: 60px;
+    height: 34px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.cv-schedule-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cv-schedule-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cv-schedule-cat {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+/* Watch Stats */
+.course-watch-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cw-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    min-width: 80px;
+}
+
+.cw-val {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-1);
+}
+
+.cw-lbl {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+/* Course Toolbar */
+.course-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Light theme */
+body.light-theme .course-playlist-card { background: #fff; border-color: rgba(0,0,0,0.06); }
+body.light-theme .course-video-item { border-bottom-color: rgba(0,0,0,0.04); }
+body.light-theme .cv-note-wrap textarea { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.1); color: #1a1a2e; }
+body.light-theme .cv-schedule-item { background: rgba(0,0,0,0.02); }
+body.light-theme .cw-stat { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.05); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .course-playlists-grid { grid-template-columns: 1fr; }
+    .cv-thumb { width: 120px; height: 68px; }
+    .course-player iframe { aspect-ratio: 16 / 9; }
+}
+
+@media (max-width: 480px) {
+    .course-video-item { flex-direction: column; }
+    .cv-thumb { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+}
